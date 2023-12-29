@@ -7,7 +7,7 @@ export default async function SetupLayout({
 }) {
   const currentUser = await getCurrentUser();
 
-  //   if (!currentUser) return <>NO USER</>;
+  if (!currentUser) return <>NO USER</>;
 
   return <>{children}</>;
 }
