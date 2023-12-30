@@ -15,15 +15,15 @@ export default async function SetupLayout({
     redirect("/auth");
   }
 
-  // const store = await prisma.store.findFirst({
-  //   where: {
-  //     userId,
-  //   },
-  // });
+  const store = await prisma.store.findFirst({
+    where: {
+      userId,
+    },
+  });
 
-  // if (store) {
-  //   redirect(`/${store.id}`);
-  // }
+  if (store) {
+    redirect(`/${store.id}`);
+  }
 
   return <>{children}</>;
 }

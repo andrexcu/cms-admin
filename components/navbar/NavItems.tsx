@@ -17,11 +17,11 @@ export function NavItems({
       label: "Overview",
       active: pathname === `/${params.storeId}`,
     },
-    // {
-    //   href: `/${params.storeId}/billboards`,
-    //   label: "Billboards",
-    //   active: pathname === `/${params.storeId}/billboards`,
-    // },
+    {
+      href: `/${params.storeId}/manage`,
+      label: "Manage",
+      active: pathname === `/${params.storeId}/manage`,
+    },
     // {
     //   href: `/${params.storeId}/categories`,
     //   label: "Categories",
@@ -54,15 +54,15 @@ export function NavItems({
     },
   ];
   return (
-    <nav className={cn("flex items-center space-x-4 lg:space-x-6", className)}>
+    <nav className={cn("flex items-center space-x-4 lg:space-x-6 ", className)}>
       {routes.map((route) => (
         <Link
           href={route.href}
           key={route.href}
           className={cn(
-            "text-sm font-medium transition-colors hover:text-primary",
+            "text-md font-medium transition-colors hover:text-primary rounded-full",
             route.active
-              ? "text-black dark:text-white"
+              ? "text-white dark:text-white bg-slate-950/80 rounded-full py-0.5 px-2 hover:text-gray-300"
               : "text-muted-foreground"
           )}
         >

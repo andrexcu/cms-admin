@@ -22,14 +22,24 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { Hydrate } from "@/components/Hydrate";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const formSchema = z.object({
-  name: z.string().min(1),
+  name: z.string().min(1, { message: "Cannot be empty" }),
+  type: z.string().min(1, { message: "Cannot be empty" }),
 });
 
 type TformSchema = z.infer<typeof formSchema>;
 
 export const StoreModal = () => {
+  const types = ["Personal", "Organization"];
+
   const storeModal = useStoreModal();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -37,6 +47,7 @@ export const StoreModal = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
+      type: "",
     },
   });
 
@@ -49,6 +60,7 @@ export const StoreModal = () => {
       const response = await axios.post("/api/stores", values);
       form.reset({
         name: "",
+        type: "",
       });
       window.location.assign(`/${response.data.id}`);
     } catch (error) {
@@ -65,7 +77,7 @@ export const StoreModal = () => {
         isOpen={storeModal.isOpen}
         onClose={storeModal.onClose}
       >
-        <div className="space-y-4 py-2 pb-4">
+        <div className="flex flex-col space-y-4 py-2 pb-4">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <FormField
@@ -81,7 +93,38 @@ export const StoreModal = () => {
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className="py-2" />
+              <FormField
+                control={form.control}
+                name="type"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Type</FormLabel>
+                    <Select
+                      disabled={isLoading}
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue
+                            defaultValue={field.value}
+                            placeholder="Select a type"
+                          />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {types.map((type) => (
+                          <SelectItem key={type} value={type}>
+                            {type}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </FormItem>
                 )}
               />

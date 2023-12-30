@@ -46,6 +46,7 @@ model Store {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   userId    String
+  type      String
   // billboards Billboard[]
   // categories Category[]
   // sizes      Size[]
