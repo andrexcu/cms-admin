@@ -139,7 +139,7 @@ const Modal = ({
                     left-9
                   "
                 >
-                  <X size={18} />
+                  {/* <X size={18} /> */}
                 </button>
                 <div className="text-lg font-semibold">{title}</div>
               </div>
