@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/sonner";
 import LoginModal from "@/components/modals/LoginModal";
 import RegisterModal from "@/components/modals/RegisterModal";
 import { StoreModal } from "@/components/modals/StoreModal";
-
+import { ThemeProvider } from "@/components/ThemeProvider";
 const DM_sans = DM_Sans({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
@@ -19,11 +19,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={DM_sans.className}>
-        <Toaster richColors position="top-center" />
-        <StoreModal />
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <StoreModal />
+          <Toaster position="bottom-right" theme="dark" />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

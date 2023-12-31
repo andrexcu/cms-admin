@@ -31,8 +31,8 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
               className="
                 py-1.5
                 px-4
-                border-[1px]
-                border-neutral-200
+                border
+                
                 flex
                 flex-row
                 items-center
@@ -42,7 +42,7 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
             "
             >
               {/* <AlignJustify /> */}
-              <Shield size={20} />
+              {/* <Shield size={20} /> */}
               <span className="font-bold tracking-wide">ADMIN</span>
               <div className="pl-2 md:block">
                 <Avatar src={currentUser?.image} />
