@@ -90,10 +90,18 @@ const RegisterModal = () => {
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       <hr />
-      <Button variant="outline" onClick={() => signIn("google")}>
+      <Button
+        variant="outline"
+        onClick={() => signIn("google")}
+        className="bg-slate-950 text-white"
+      >
         Continue with Google
       </Button>
-      <Button variant="outline" onClick={() => signIn("github")}>
+      <Button
+        variant="outline"
+        onClick={() => signIn("github")}
+        className="bg-slate-950 text-white"
+      >
         Continue with Github
       </Button>
       <div
@@ -106,11 +114,11 @@ const RegisterModal = () => {
         "
       >
         <div className="flex flex-row items-center justify-center gap-2">
-          <div>Already have an account?</div>
+          <div className="text-white">Already have an account?</div>
           <div
             onClick={toggle}
             className="
-              text-neutral-800
+              text-neutral-400
               cursor-pointer
               hover:underline
             "

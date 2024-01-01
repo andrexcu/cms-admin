@@ -10,7 +10,7 @@ import { signOut } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { User } from "@prisma/client";
-import { AlignJustify, Shield } from "lucide-react";
+import { AlignJustify, Shield, UserRound } from "lucide-react";
 import {
   Popover,
   PopoverContent,
@@ -44,9 +44,9 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
               {/* <AlignJustify /> */}
               {/* <Shield size={20} /> */}
               <span className="font-bold tracking-wide">ADMIN</span>
-              <div className="pl-2 md:block">
+              {/* <div className="pl-2 hidden lg:flex">
                 <Avatar src={currentUser?.image} />
-              </div>
+              </div> */}
             </div>
           </div>
         </PopoverTrigger>

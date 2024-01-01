@@ -80,36 +80,67 @@ const LoginModal = () => {
     </div>
   );
 
+  const handleSignIn = async (name: string) => {
+    setIsLoading(true);
+    try {
+      await signIn(`${name}`, { callbackUrl: "/" });
+
+      toast.success("Login successful!");
+
+      // Display success toast
+    } catch (error) {
+      // Handle login error
+      toast.error("Login failed. Please try again.");
+    }
+  };
+
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
+      {/* <button
+        className="text-white"
+        onClick={() => setIsLoading((state) => !state)}
+      >
+        TEST
+      </button> */}
       <hr />
-      <Button variant="outline" onClick={() => signIn("google")}>
+      <Button
+        variant="outline"
+        className="bg-slate-950 text-white"
+        onClick={() => handleSignIn("google")}
+        disabled={isLoading}
+      >
         Continue with Google
       </Button>
-      <Button variant="outline" onClick={() => signIn("github")}>
+      <Button
+        className="bg-slate-950 text-white"
+        variant="outline"
+        disabled={isLoading}
+        onClick={() => handleSignIn("github")}
+      >
         Continue with Github
       </Button>
       <div
         className="
-          text-neutral-500
+          
           text-center
           mt-4
-          font-light
+          
 
         "
       >
         <div className="flex flex-row items-center justify-center gap-2">
-          <div>No Account Yet?</div>
-          <div
+          <div className="text-white">No Account Yet?</div>
+          <button
             onClick={toggle}
-            className="
-              text-neutral-800
+            disabled={isLoading}
+            className={`
+              text-neutral-400
               cursor-pointer
               hover:underline
-            "
+            `}
           >
             Create an account
-          </div>
+          </button>
         </div>
       </div>
     </div>

@@ -20,20 +20,25 @@ const Navbar = async () => {
   });
 
   return (
-    <div className="border-b flex flex-col lg:flex-row justify-between items-center px-4 gap-x-2">
-      <div className="flex flex-row h-20 items-center px-4 justify-center w-full">
-        <div className="flex flex-row gap-8 items-center">
-          <NavItems className=" rounded-full bg-slate-500/15 p-4" />
+    <div className="border-b flex flex-col lg:flex-row">
+      <div className="flex h-20 items-center justify-center pl-4 py-4 gap-4">
+        <NavItems className="rounded-full bg-slate-500/15 p-4" />
+        <StoreSwitcher items={stores} className="hidden lg:flex" />
+      </div>
+      {/* <div className="w-full h-10 lg:hidden flex flex-row justify-center items-center">
+
+      </div> */}
+      <div className="flex flex-row h-20 justify-center items-center w-full gap-x-2">
+        <div className="flex flex-row lg:hidden">
+          <ModeToggle />
+          <div className="sm:flex">
+            <UserMenu currentUser={currentUser} />
+          </div>
         </div>
+
+        <StoreSwitcher items={stores} className="lg:hidden" />
       </div>
-      <div className="w-full h-10 lg:hidden flex flex-row justify-center items-center">
-        <ModeToggle />
-        <UserMenu currentUser={currentUser} />
-      </div>
-      <div className="flex flex-row h-20 justify-center items-center w-full">
-        <StoreSwitcher items={stores} className="" />
-      </div>
-      <div className="h-20 hidden lg:flex flex-row w-full justify-end items-center">
+      <div className="h-20 hidden lg:flex flex-row w-full justify-end items-center pr-4">
         <ModeToggle />
         <UserMenu currentUser={currentUser} />
       </div>

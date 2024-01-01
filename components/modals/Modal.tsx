@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Router, { useRouter } from "next/navigation";
 
 interface ModalProps {
   isOpen?: boolean;
@@ -44,10 +45,12 @@ const Modal = ({
     }, 300);
   }, [disabled, onClose]);
 
-  const handleSubmit = useCallback(() => {
+  const router = useRouter();
+  const handleSubmit = () => {
     if (disabled) return;
+
     onSubmit();
-  }, [disabled, onSubmit]);
+  };
 
   const handleSecondaryAction = useCallback(() => {
     if (disabled || !secondaryAction) return;
@@ -111,7 +114,7 @@ const Modal = ({
                 flex
                 flex-col
                 w-full
-                bg-white
+                bg-zinc-950
                 outline-none
                 focus:ouline-none
               "
@@ -141,7 +144,7 @@ const Modal = ({
                 >
                   {/* <X size={18} /> */}
                 </button>
-                <div className="text-lg font-semibold">{title}</div>
+                <div className="text-lg font-semibold text-white">{title}</div>
               </div>
               {/* BODY */}
               <div className="relative p-6 flex-auto">{body}</div>
@@ -162,7 +165,7 @@ const Modal = ({
                     </Button>
                   )}
 
-                  <Button disabled={disabled} onClick={handleSubmit}>
+                  <Button disabled={disabled} onClick={onSubmit}>
                     {actionLabel}
                   </Button>
                 </div>

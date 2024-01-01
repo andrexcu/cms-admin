@@ -42,6 +42,7 @@ const Input = ({
           p-4
           pt-6
           font-light
+          text-black
           bg-white
           border-2
           rounded-md

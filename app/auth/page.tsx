@@ -8,12 +8,14 @@ const AuthPage = () => {
   const onOpen = useLoginModal((state) => state.onOpen);
   const isOpen = useLoginModal((state) => state.isOpen);
 
+  // useEffect(() => {
+  //   if (!isOpen) {
+  //     onOpen();
+  //   }
+  // }, [isOpen, onOpen]);
   useEffect(() => {
-    if (!isOpen) {
-      onOpen();
-    }
-  }, [isOpen, onOpen]);
-
+    onOpen();
+  }, []);
   return null;
 };
 
