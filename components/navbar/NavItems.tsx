@@ -20,7 +20,12 @@ export function NavItems({
     {
       href: `/${params.storeId}/manage`,
       label: "Manage",
-      active: pathname === `/${params.storeId}/manage`,
+      active:
+        pathname === `/${params.storeId}/manage` ||
+        pathname === `/${params.storeId}/manage/billboards` ||
+        pathname === `/${params.storeId}/manage/categories` ||
+        pathname === `/${params.storeId}/manage/colors` ||
+        pathname === `/${params.storeId}/manage/sizes`,
     },
     {
       href: `/${params.storeId}/products`,

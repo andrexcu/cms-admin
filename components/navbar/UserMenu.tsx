@@ -38,7 +38,9 @@ const UserMenu = ({ currentUser }: UserMenuProps) => {
                 items-center
                 rounded-full
                 cursor-pointer
+                hover:bg-primary/10
                 hover:shadow-md
+                
             "
             >
               {/* <AlignJustify /> */}

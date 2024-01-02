@@ -18,7 +18,7 @@ const textMap: Record<ApiAlertProps["variant"], string> = {
 };
 
 const variantMap: Record<ApiAlertProps["variant"], BadgeProps["variant"]> = {
-  public: "secondary",
+  public: "green",
   admin: "destructive",
 };
 
@@ -33,18 +33,19 @@ export const ApiAlert = ({
   };
 
   return (
-    <Alert className="h-[110px]">
-      <Server className="h-4 w-4" />
+    <Alert className="h-auto break-all">
+      <Server size={20} />
       <AlertTitle className="flex items-center gap-x-2">
         {title}
         <Badge variant={variantMap[variant]}>{textMap[variant]}</Badge>
       </AlertTitle>
-      <AlertDescription className="mt-4 flex items-center justify-between">
+
+      <AlertDescription className="mt-4 flex items-center justify-between gap-x-4">
         <code className="rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
           {description}
         </code>
         <Button variant="outline" size="icon" onClick={onCopy}>
-          <Copy className="h-4 w-4" />
+          <Copy size={16} />
         </Button>
       </AlertDescription>
     </Alert>

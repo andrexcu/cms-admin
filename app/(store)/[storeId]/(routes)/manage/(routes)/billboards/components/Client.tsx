@@ -5,7 +5,15 @@ import React from "react";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
-const BillboardClient = () => {
+import ApiList from "@/components/ui/api-list";
+import { DataTable } from "@/components/ui/data-table";
+import { BillboardColumn, Columns } from "./Columns";
+
+interface BillboardClientProps {
+  data: BillboardColumn[];
+}
+
+const BillboardClient = ({ data }: BillboardClientProps) => {
   const params = useParams();
   const router = useRouter();
   return (
@@ -16,10 +24,13 @@ const BillboardClient = () => {
           description="Manage your store's billboard"
         />
         <Link href={`/${params.storeId}/manage`}>
-          <ArrowLeftToLine className="transform rotate-180" />
+          <ArrowLeftToLine className="transform rotate-180 hover:translate-x-2 transition duration-300" />
         </Link>
       </div>
       <Separator />
+      <ApiList entityName="billboards" entityIdName="billboardId" />
+      <Separator />
+      <DataTable columns={Columns} data={data} searchKey="label" />
     </>
   );
 };
