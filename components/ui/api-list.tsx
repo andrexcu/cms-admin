@@ -33,7 +33,7 @@ const ApiList = ({ entityName, entityIdName }: ApiListProps) => {
       >
         <div className="flex items-center justify-between space-x-4">
           <h4 className="text-sm font-semibold">NEXT API ENDPOINTS</h4>
-          <div>
+          <div className="flex items-center justify-center">
             {!isOpen ? (
               <span className="bg-muted rounded-full px-2 text-sm">
                 Expand to view private routes

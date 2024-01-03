@@ -1,5 +1,7 @@
+"use client";
+
 import Heading from "@/components/ui/heading";
-import { ArrowLeftToLine } from "lucide-react";
+import { ArrowLeftToLine, Plus } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { useParams } from "next/navigation";
@@ -8,6 +10,7 @@ import { Separator } from "@/components/ui/separator";
 import ApiList from "@/components/ui/api-list";
 import { DataTable } from "@/components/ui/data-table";
 import { BillboardColumn, Columns } from "./Columns";
+import { Button } from "@/components/ui/button";
 
 interface BillboardClientProps {
   data: BillboardColumn[];

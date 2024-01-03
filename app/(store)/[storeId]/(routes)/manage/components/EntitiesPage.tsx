@@ -13,7 +13,7 @@ import BillboardsPage from "../(routes)/billboards/page";
 
 const EntitiesPage = () => {
   return (
-    <div className="flex flex-col lg:flex-row h-dvh w-full">
+    <div className="flex h-dvh lg:flex-row flex-col w-full">
       <div className={cn("h-1/4 lg:h-full lg:w-1/4 lg:border-r")}>
         <div
           className={cn(

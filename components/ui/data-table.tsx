@@ -21,6 +21,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Plus } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
+import { DrawerContent } from "./drawer";
+import { AddNewBillboardDrawer } from "@/app/(store)/[storeId]/(routes)/manage/(routes)/billboards/components/DrawerContent";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -47,9 +51,12 @@ export function DataTable<TData, TValue>({
     },
   });
 
+  const router = useRouter();
+  const params = useParams();
+
   return (
     <div>
-      <div className="flex items-center py-4">
+      <div className="flex justify-between items-center py-4">
         <Input
           placeholder="Search"
           value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ""}

@@ -5,17 +5,18 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
+import { parsedEnv } from "@/lib/Validation/env";
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     GithubProvider({
-      clientId: process.env.GITHUB_ID as string,
-      clientSecret: process.env.GITHUB_SECRET as string,
+      clientId: parsedEnv.GITHUB_ID,
+      clientSecret: parsedEnv.GITHUB_SECRET,
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      clientId: parsedEnv.GOOGLE_CLIENT_ID,
+      clientSecret: parsedEnv.GOOGLE_CLIENT_SECRET,
     }),
     CredentialsProvider({
       name: "credentials",
@@ -54,7 +55,7 @@ export const authOptions: AuthOptions = {
   session: {
     strategy: "jwt",
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: parsedEnv.NEXTAUTH_SECRET,
 };
 
 const handler = NextAuth(authOptions);

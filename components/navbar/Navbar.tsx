@@ -25,9 +25,7 @@ const Navbar = async () => {
         <NavItems className="rounded-full bg-slate-500/15 p-4" />
         <StoreSwitcher items={stores} className="hidden lg:flex" />
       </div>
-      {/* <div className="w-full h-10 lg:hidden flex flex-row justify-center items-center">
 
-      </div> */}
       <div className="flex flex-row h-20 justify-center items-center w-full gap-x-2">
         <div className="flex flex-row lg:hidden">
           <ModeToggle />
