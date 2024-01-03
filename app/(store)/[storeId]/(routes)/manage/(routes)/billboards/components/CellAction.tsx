@@ -30,6 +30,7 @@ const CellAction = ({ data }: CellActionProps) => {
     navigator.clipboard.writeText(data.id);
     toast.success("Billboard Id copied to the clipboard.");
   };
+
   const onUpdate = () => {
     router.push(`/${params.storeId}/billboards/${data.id}`);
   };

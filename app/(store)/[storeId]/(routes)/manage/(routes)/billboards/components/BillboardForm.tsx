@@ -34,7 +34,7 @@ import {
   BillboardSchema,
   TBillboardSchema,
 } from "@/lib/Validation/BillboardsValidation";
-import { Plus } from "lucide-react";
+import { Check, Plus, RotateCcw } from "lucide-react";
 
 interface BillboardFormProps {
   initialData: Billboard | null;
@@ -42,7 +42,7 @@ interface BillboardFormProps {
 
 const BillboardForm = ({ initialData }: BillboardFormProps) => {
   const title = initialData ? "Edit billboard" : "Create billboard";
-  const description = initialData ? "Update billboard" : "Add a new billboard";
+  const description = initialData ? "Update billboard" : "Create billboard";
   const toastMessage = initialData
     ? "Billboard Updated."
     : "Billboard created.";
@@ -58,7 +58,11 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
 
   const {
     formState: { errors },
+    reset,
+    watch,
   } = form;
+  const label = watch("label");
+  const imageUrl = watch("imageUrl");
 
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -94,6 +98,22 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
             </div>
             <div className=""></div>
             <div className="flex gap-4 items-center">
+              <div className="group">
+                <Button
+                  disabled={isLoading}
+                  variant="default"
+                  className="overflow-hidden rounded-full"
+                  size="md"
+                >
+                  <RotateCcw className="h-4 w-4" />
+                  <p
+                    onClick={() => reset({ label: "" })}
+                    className="text-md px-2"
+                  >
+                    Reset field
+                  </p>
+                </Button>
+              </div>
               <DrawerClose asChild>
                 <Button variant="outline">Cancel</Button>
               </DrawerClose>
@@ -164,7 +184,7 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
                     className="absolute bottom-2 right-2 overflow-hidden group-hover:rounded-full group-hover:bg-accent transition-all duration-250 p-3 group-hover:p-2"
                     size="lg"
                   >
-                    {initialData ? "Update" : <Plus size={28} />}
+                    {initialData ? "Update" : <Check size={28} />}
                   </Button>
                 </div>
               </div>

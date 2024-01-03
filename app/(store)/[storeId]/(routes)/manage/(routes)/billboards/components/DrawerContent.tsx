@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -11,12 +12,14 @@ import {
 } from "@/components/ui/drawer";
 import { Plus } from "lucide-react";
 import BillboardForm from "./BillboardForm";
+import { useParams } from "next/navigation";
 
 export function AddNewBillboardDrawer() {
   return (
     <Drawer>
       <DrawerTrigger asChild>
         <div className="flex items-center gap-x-4">
+          <button className="absolute top-0 right-0">test</button>
           <div className="group">
             <div className="flex flex-row items-center">
               <Button

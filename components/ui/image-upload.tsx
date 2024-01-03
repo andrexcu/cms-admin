@@ -18,6 +18,8 @@ import {
 } from "@/components/ui/carousel";
 import { FormLabel } from "./form";
 import { FieldError } from "react-hook-form";
+import { Button } from "./button";
+import { X } from "lucide-react";
 
 interface ImageProps {
   name: string;
@@ -87,7 +89,6 @@ export default function ImageUpload({
             // Do something with the error.
             alert(`ERROR! ${error.message}`);
           }}
-          
         />
       </div>
       {/* bg-black transition duration-300 ease-in-out transform hover:scale-105 */}
@@ -100,24 +101,36 @@ export default function ImageUpload({
           <CarouselContent className="m-2">
             <CarouselItem className="p-2">
               <Card className="rounded-lg ">
-                <CardContent className="relative h-[380px] bg-secondary flex items-center justify-center rounded-lg opacity-60">
-                  {value.length >= 1 ? (
-                    value?.map((url) => (
+                {value.length >= 1 ? (
+                  value?.map((url) => (
+                    <CardContent
+                      key={url}
+                      className="relative h-[380px] bg-secondary flex items-center justify-center rounded-lg opacity-60"
+                    >
                       <Image
-                        key={url}
                         src={url}
                         alt="image"
                         fill
                         sizes="100vh"
                         className="object-cover h-[400px] transition duration-300 ease-in-out transform hover:scale-110"
                       />
-                    ))
-                  ) : (
+
+                      <p className="absolute top-0 right-0">
+                        <X
+                          size={30}
+                          className="text-primary"
+                          onClick={() => onRemove(url)}
+                        />
+                      </p>
+                    </CardContent>
+                  ))
+                ) : (
+                  <CardContent className="relative h-[380px] bg-secondary flex items-center justify-center rounded-lg opacity-60">
                     <p className="text-muted-foreground">
                       No Image uploaded yet.
                     </p>
-                  )}
-                </CardContent>
+                  </CardContent>
+                )}
               </Card>
             </CarouselItem>
           </CarouselContent>

@@ -1,7 +1,7 @@
 "use client";
 
 import Heading from "@/components/ui/heading";
-import { ArrowLeftToLine, Plus } from "lucide-react";
+import { ArrowLeftToLine, LogOut, Plus } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { useParams } from "next/navigation";
@@ -27,7 +27,7 @@ const BillboardClient = ({ data }: BillboardClientProps) => {
           description="Manage your store's billboard"
         />
         <Link href={`/${params.storeId}/manage`}>
-          <ArrowLeftToLine className="transform rotate-180 hover:translate-x-2 transition duration-300" />
+          <LogOut className="transform hover:translate-x-2 transition duration-300" />
         </Link>
       </div>
       <Separator />
