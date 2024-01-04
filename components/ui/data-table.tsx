@@ -21,10 +21,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Plus } from "lucide-react";
+
 import { useParams, useRouter } from "next/navigation";
-import { DrawerContent } from "./drawer";
-import { AddNewBillboardDrawer } from "@/app/(store)/[storeId]/(routes)/manage/(routes)/billboards/components/DrawerContent";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

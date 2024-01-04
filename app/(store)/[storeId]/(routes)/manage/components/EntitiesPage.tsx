@@ -33,7 +33,7 @@ const EntitiesPage = () => {
             "font-bold text-xl w-full flex pt-8 flex-col items-center justify-center "
           )}
         >
-          <Link href="manage/billboards">Categories</Link>
+          <Link href="manage/categories">Categories</Link>
           <p className="text-sm text-muted-foreground">
             Manage store categories
           </p>

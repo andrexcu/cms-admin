@@ -48,7 +48,7 @@ model Store {
   userId     String
   type       String
   billboards Billboard[]
-  // categories Category[]
+  categories Category[]
   // sizes      Size[]
   // colors     Color[]
   // Product    Product[]
@@ -58,12 +58,24 @@ model Store {
 }
 
 model Billboard {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  storeId   String   @db.ObjectId
-  store     Store    @relation(fields: [storeId], references: [id])
-  label     String
-  imageUrl  String
-  // categories Category[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  storeId    String     @db.ObjectId
+  store      Store      @relation(fields: [storeId], references: [id])
+  label      String
+  imageUrl   String
+  categories Category[]
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+}
+
+model Category {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  storeId     String    @db.ObjectId
+  store       Store     @relation(fields: [storeId], references: [id])
+  billboardId String    @db.ObjectId
+  billboard   Billboard @relation(fields: [billboardId], references: [id])
+  // Products    Product[]
+  name        String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
