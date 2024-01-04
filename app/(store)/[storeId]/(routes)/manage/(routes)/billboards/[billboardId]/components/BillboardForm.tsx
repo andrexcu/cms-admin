@@ -24,7 +24,7 @@ import axios from "axios";
 import { LogOut, Trash } from "lucide-react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -40,6 +40,15 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
   const router = useRouter();
   const params = useParams();
 
+  useEffect(() => {
+    if (!initialData) {
+      router.push(`/${params.storeId}/manage/billboards`);
+    }
+  });
+
+  if (!initialData) {
+    return null;
+  }
   const title = "Update billboard";
   const description = "Edit this billboard";
   const toastMessage = initialData
@@ -80,7 +89,7 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
       await axios.delete(
         `/api/stores/${params.storeId}/billboards/${initialData?.id}`
       );
-      router.push(`/${params.storeId}/billboards`);
+      router.push(`/${params.storeId}/manage/billboards`);
       router.refresh();
       toast.success("Billboard deleted.");
     } catch (error) {
