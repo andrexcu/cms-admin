@@ -88,6 +88,8 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
     }
   };
 
+  // console.log(hasError);
+
   return (
     <DrawerContent className="h-[80%] ">
       <div className="mx-auto w-full">
@@ -138,8 +140,10 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
                           {...field}
                           disabled={isLoading}
                           className="hover:bg-slate-300/20 bg-slate-500/10"
+                          maxLength={151}
                         />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -152,19 +156,14 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
                   <>
                     <FormItem className="text-outline ">
                       <div>
-                        <div className="flex flex-row justify-center">
-                          <FormMessage />
-                        </div>
-                        {/* <FormLabel className="cursor-default text-muted-foreground">
-                            Upload an image
-                          </FormLabel> */}
-
                         <FormControl className="">
                           <ImageUpload
                             value={field.value ? [field.value] : []}
                             disabled={isLoading}
                             onChange={(url) => field.onChange(url)}
                             onRemove={() => field.onChange("")}
+                            label={label}
+                            error={errors.imageUrl?.message}
                           />
                         </FormControl>
                       </div>

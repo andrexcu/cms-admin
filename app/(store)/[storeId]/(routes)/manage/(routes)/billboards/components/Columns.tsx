@@ -9,6 +9,8 @@ export type BillboardColumn = {
   createdAt: string;
 };
 
+// const truncatedText = truncateText(label);
+
 export const Columns: ColumnDef<BillboardColumn>[] = [
   {
     accessorKey: "label",

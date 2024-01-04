@@ -23,6 +23,8 @@ export function NavItems({
       active:
         pathname === `/${params.storeId}/manage` ||
         pathname === `/${params.storeId}/manage/billboards` ||
+        pathname ===
+          `/${params.storeId}/manage/billboards/${params.billboardId}` ||
         pathname === `/${params.storeId}/manage/categories` ||
         pathname === `/${params.storeId}/manage/colors` ||
         pathname === `/${params.storeId}/manage/sizes`,

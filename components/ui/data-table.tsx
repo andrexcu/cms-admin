@@ -11,7 +11,7 @@ import {
   getFilteredRowModel,
 } from "@tanstack/react-table";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   Table,
@@ -46,6 +46,7 @@ export function DataTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
+    // pageCount: 5,
     state: {
       columnFilters,
     },

@@ -5,7 +5,7 @@
 
 import { UploadButton } from "@/src/utils/uploadthing";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
@@ -35,6 +35,8 @@ interface ImageUploadProps {
   onChange: (value: string) => void;
   onRemove: (value: string) => void;
   value: string[];
+  label: string;
+  error: string | undefined;
 }
 
 export default function ImageUpload({
@@ -42,6 +44,8 @@ export default function ImageUpload({
   onChange,
   onRemove,
   value,
+  label,
+  error,
 }: ImageUploadProps) {
   // const [images, setImages] = useState<ImageUploadProps[]>();
 
@@ -52,8 +56,6 @@ export default function ImageUpload({
       onChange(url); // Update with the URL value
     }
   };
-
-  // console.log(value);
 
   return (
     <>
@@ -105,14 +107,14 @@ export default function ImageUpload({
                   value?.map((url) => (
                     <CardContent
                       key={url}
-                      className="relative h-[380px] bg-secondary flex items-center justify-center rounded-lg opacity-60"
+                      className="relative h-[380px] bg-secondary flex items-center justify-center rounded-lg "
                     >
                       <Image
                         src={url}
                         alt="image"
                         fill
                         sizes="100vh"
-                        className="object-cover h-[400px] transition duration-300 ease-in-out transform hover:scale-110"
+                        className="object-cover h-[400px] transition duration-300 ease-in-out transform hover:scale-110 opacity-70"
                       />
 
                       <p className="absolute top-0 right-0">
@@ -122,13 +124,23 @@ export default function ImageUpload({
                           onClick={() => onRemove(url)}
                         />
                       </p>
+                      {label && (
+                        <p className="absolute top-30 p-4 max-w-md text-2xl text-bold text-center text-primary break-words">
+                          {label}
+                        </p>
+                      )}
                     </CardContent>
                   ))
                 ) : (
-                  <CardContent className="relative h-[380px] bg-secondary flex items-center justify-center rounded-lg opacity-60">
+                  <CardContent className="relative h-[380px] bg-secondary flex flex-col items-center justify-center rounded-lg opacity-60">
                     <p className="text-muted-foreground">
                       No Image uploaded yet.
                     </p>
+                    {error && (
+                      <span className="text-red-500">
+                        Billboard Image is required
+                      </span>
+                    )}
                   </CardContent>
                 )}
               </Card>
