@@ -115,6 +115,7 @@ export default function ImageUpload({
                         fill
                         sizes="100vh"
                         className="object-cover h-[400px] transition duration-300 ease-in-out transform hover:scale-110 opacity-70"
+                        priority
                       />
 
                       <p className="absolute top-0 right-0">

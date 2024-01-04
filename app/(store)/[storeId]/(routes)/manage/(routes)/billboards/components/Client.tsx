@@ -22,10 +22,13 @@ const BillboardClient = ({ data }: BillboardClientProps) => {
   return (
     <>
       <div className="flex items-center justify-between">
-        <Heading
-          title={`Billboards`}
-          description="Manage your store's billboard"
-        />
+        <div className="flex">
+          <Heading
+            title={`Billboards`}
+            description="Manage your store's billboard"
+            length={data.length}
+          />
+        </div>
         <Link href={`/${params.storeId}/manage`}>
           <LogOut className="transform hover:translate-x-2 transition duration-300" />
         </Link>
