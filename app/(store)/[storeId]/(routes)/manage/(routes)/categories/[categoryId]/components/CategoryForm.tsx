@@ -11,15 +11,18 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import Heading from "@/components/ui/heading";
-import ImageUpload from "@/components/ui/image-upload";
 import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
 import {
-  BillboardSchema,
-  TBillboardSchema,
-} from "@/lib/Validation/BillboardsValidation";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Billboard } from "@prisma/client";
+import { Billboard, Category } from "@prisma/client";
+
 import axios from "axios";
 import { LogOut, Trash } from "lucide-react";
 import Link from "next/link";
@@ -29,11 +32,19 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-interface BillboardFormProps {
-  initialData: Billboard | null;
+interface CategoryFormProps {
+  billboards: Billboard[];
+  initialData: Category | null;
 }
 
-const BillboardForm = ({ initialData }: BillboardFormProps) => {
+const formSchema = z.object({
+  name: z.string().min(1),
+  billboardId: z.string().min(1),
+});
+
+type TformSchema = z.infer<typeof formSchema>;
+
+const CategoryForm = ({ initialData, billboards }: CategoryFormProps) => {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -42,38 +53,38 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
 
   useEffect(() => {
     if (!initialData) {
-      router.push(`/${params.storeId}/manage/billboards`);
+      router.push(`/${params.storeId}/manage/categories
+      `);
     }
   });
 
   if (!initialData) {
     return null;
   }
-  const title = "Update billboard";
-  const description = "Edit this billboard";
-  const toastMessage = initialData
-    ? "Billboard Updated."
-    : "Billboard created.";
+
+  const title = initialData ? "Edit Category" : "Create Category";
+  const description = initialData ? "Edit a Category" : "Add a new Category";
+  const toastMessage = initialData ? "Category Updated." : "Category created.";
   const action = initialData ? "Save changes" : "Create";
 
-  const form = useForm<TBillboardSchema>({
-    resolver: zodResolver(BillboardSchema),
+  const form = useForm<TformSchema>({
+    resolver: zodResolver(formSchema),
     defaultValues: initialData || {
-      label: "",
-      imageUrl: "",
+      name: "",
+      billboardId: "",
     },
   });
 
-  const onSubmit = async (data: TBillboardSchema) => {
+  const onSubmit = async (data: TformSchema) => {
     try {
       setIsLoading(true);
 
       await axios.patch(
-        `/api/stores/${params.storeId}/billboards/${initialData?.id}`,
+        `/api/stores/${params.storeId}/categories/${initialData?.id}`,
         data
       );
 
-      router.push(`/${params.storeId}/manage/billboards`);
+      router.push(`/${params.storeId}/manage/categories`);
       router.refresh();
       toast.success(toastMessage);
     } catch (error) {
@@ -87,27 +98,20 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
     try {
       setIsLoading(true);
       await axios.delete(
-        `/api/stores/${params.storeId}/billboards/${initialData?.id}`
+        `/api/stores/${params.storeId}/categories/${initialData?.id}`
       );
-      router.push(`/${params.storeId}/manage/billboards`);
+      router.push(`/${params.storeId}/manage/categories`);
       router.refresh();
-      toast.success("Billboard deleted.");
+      toast.success("Category deleted.");
     } catch (error) {
       toast.error(
-        "Make sure you remove categories using this billboard first."
+        "Make sure you removed all products using this Category first."
       );
     } finally {
       setIsLoading(false);
       setOpen(false);
     }
   };
-  const {
-    formState: { errors },
-    reset,
-    watch,
-  } = form;
-  const label = watch("label");
-  const imageUrl = watch("imageUrl");
   return (
     <>
       <AlertModal
@@ -118,7 +122,7 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
       />
       <div className="flex items-center justify-between">
         <Heading title={title} description={description} />
-        <Link href={`/${params.storeId}/manage/billboards`}>
+        <Link href={`/${params.storeId}/manage/categories`}>
           <LogOut className="transform hover:translate-x-2 transition duration-300" />
         </Link>
       </div>
@@ -126,52 +130,70 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-4 w-full"
+          className="space-y-8 w-full"
         >
-          <FormField
-            control={form.control}
-            name="imageUrl"
-            render={({ field }) => (
-              <FormItem>
-                <div className="flex items-center gap-x-1">
-                  <FormLabel>Background image</FormLabel>
-                  <FormMessage />
-                </div>
-                <FormControl>
-                  <ImageUpload
-                    value={field.value ? [field.value] : []}
-                    disabled={isLoading}
-                    onChange={(url) => field.onChange(url)}
-                    onRemove={() => field.onChange("")}
-                    label={label}
-                    error={errors.label?.message}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-
-          <div className="flex flex-col gap-4 md:flex-row justify-between items-center ">
+          <div className="flex flex-col md:flex-row items-center gap-8 ">
             <FormField
               control={form.control}
-              name="label"
+              name="name"
               render={({ field }) => (
-                <FormItem className="ml-6 relative">
-                  <FormLabel className="absolute bottom-12">Label</FormLabel>
+                <FormItem className="md:w-[520px]">
+                  <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Billboard label"
-                      {...field}
-                      disabled={isLoading}
-                      className="hover:bg-slate-300/20 bg-slate-500/10 "
-                      maxLength={151}
-                    />
+                    <>
+                      <Input
+                        placeholder="Category Name"
+                        {...field}
+                        disabled={isLoading || billboards.length < 1}
+                        className="hover:bg-slate-300/20 bg-slate-500/10  "
+                      />
+                    </>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <div className="flex gap-x-2">
+            <FormField
+              control={form.control}
+              name="billboardId"
+              render={({ field }) => (
+                <FormItem className="md:w-[520px]">
+                  <FormLabel>Billboard</FormLabel>
+                  <Select
+                    disabled={isLoading}
+                    onValueChange={field.onChange}
+                    value={field.value}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue
+                          defaultValue={field.value}
+                          placeholder="Select a billboard"
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {billboards.length > 0 ? (
+                        billboards.map((billboard) => (
+                          <SelectItem key={billboard.id} value={billboard.id}>
+                            {billboard.label}
+                          </SelectItem>
+                        ))
+                      ) : (
+                        <SelectItem value="none" disabled>
+                          No billboards found.
+                        </SelectItem>
+                      )}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="flex flex-row gap-2 justify-center md:justify-start">
+            <div>
               <Button
                 type="button"
                 onClick={() => setOpen(true)}
@@ -182,7 +204,9 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
               >
                 Delete Billboard
               </Button>
-              <Button variant="outline" disabled={isLoading} className="">
+            </div>
+            <div>
+              <Button disabled={isLoading} className="ml-auto">
                 {action}
               </Button>
             </div>
@@ -193,4 +217,4 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
   );
 };
 
-export default BillboardForm;
+export default CategoryForm;

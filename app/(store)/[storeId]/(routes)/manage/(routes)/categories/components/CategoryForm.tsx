@@ -77,7 +77,7 @@ const CategoryForm = ({ billboards }: CategoryFormProps) => {
     try {
       setIsLoading(true);
 
-      await axios.post(`/api/stores/${params.storeId}/Categorys/`, data);
+      await axios.post(`/api/stores/${params.storeId}/categories/`, data);
 
       location.reload();
       toast.success(toastMessage);
@@ -127,13 +127,16 @@ const CategoryForm = ({ billboards }: CategoryFormProps) => {
           {/* <div className=""> */}
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="">
-              <div className="flex flex-col md:flex-row items-center gap-8 p-10 border border-red-500">
+              <div className="flex flex-col md:flex-row items-center gap-8 p-10">
                 <FormField
                   control={form.control}
                   name="name"
                   render={({ field }) => (
                     <FormItem className=" ">
-                      <FormLabel>Label</FormLabel>
+                      <div className="flex flex-row items-center gap-x-1">
+                        <FormLabel>Name</FormLabel>
+                        <FormMessage />
+                      </div>
                       <FormControl>
                         <Input
                           placeholder="Category Name"
@@ -143,7 +146,6 @@ const CategoryForm = ({ billboards }: CategoryFormProps) => {
                           maxLength={51}
                         />
                       </FormControl>
-                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -152,7 +154,10 @@ const CategoryForm = ({ billboards }: CategoryFormProps) => {
                   name="billboardId"
                   render={({ field }) => (
                     <FormItem className="w-[300px] md:w-[400px]">
-                      <FormLabel>Billboard</FormLabel>
+                      <div className="flex flex-row items-center gap-x-1">
+                        <FormLabel>Billboard</FormLabel>
+                        <FormMessage />
+                      </div>
                       <Select
                         disabled={isLoading}
                         onValueChange={field.onChange}
@@ -184,7 +189,6 @@ const CategoryForm = ({ billboards }: CategoryFormProps) => {
                           )}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
                     </FormItem>
                   )}
                 />

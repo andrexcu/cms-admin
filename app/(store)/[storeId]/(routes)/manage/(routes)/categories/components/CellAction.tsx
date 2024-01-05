@@ -7,7 +7,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { BillboardColumn } from "./Columns";
+import { CategoryColumn } from "./Columns";
 import { Button } from "@/components/ui/button";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { toast } from "sonner";
@@ -17,7 +17,7 @@ import axios from "axios";
 import { AlertModal } from "@/components/modals/AlertModal";
 
 interface CellActionProps {
-  data: BillboardColumn;
+  data: CategoryColumn;
 }
 
 const CellAction = ({ data }: CellActionProps) => {
@@ -28,21 +28,21 @@ const CellAction = ({ data }: CellActionProps) => {
 
   const onCopy = () => {
     navigator.clipboard.writeText(data.id);
-    toast.success("Billboard Id copied to the clipboard.");
+    toast.success("Category Id copied to the clipboard.");
   };
   const onUpdate = () => {
-    router.push(`/${params.storeId}/manage/billboards/${data.id}`);
+    router.push(`/${params.storeId}/manage/categories/${data.id}`);
   };
 
   const onDelete = async () => {
     try {
       setIsLoading(true);
-      await axios.delete(`/api/stores/${params.storeId}/billboards/${data.id}`);
+      await axios.delete(`/api/stores/${params.storeId}/categories/${data.id}`);
       router.refresh();
-      toast.success("Billboard deleted.");
+      toast.success("Category deleted.");
     } catch (error) {
       toast.error(
-        "Make sure you remove categories using this billboard first."
+        "Make sure you removed all products using this Category first."
       );
     } finally {
       setIsLoading(false);

@@ -49,6 +49,7 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
   if (!initialData) {
     return null;
   }
+
   const title = "Update billboard";
   const description = "Edit this billboard";
   const toastMessage = initialData
