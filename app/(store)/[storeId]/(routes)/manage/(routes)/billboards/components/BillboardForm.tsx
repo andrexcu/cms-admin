@@ -133,7 +133,7 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
                   name="label"
                   render={({ field }) => (
                     <FormItem className="ml-6 ">
-                      <FormLabel>Label</FormLabel>
+                      <FormLabel>Label {errors.label?.message}</FormLabel>
                       <FormControl>
                         <Input
                           placeholder="Billboard label"
@@ -143,7 +143,6 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
                           maxLength={151}
                         />
                       </FormControl>
-                      <FormMessage />
                     </FormItem>
                   )}
                 />

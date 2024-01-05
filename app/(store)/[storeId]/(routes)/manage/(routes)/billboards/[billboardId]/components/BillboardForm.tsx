@@ -135,7 +135,7 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
             render={({ field }) => (
               <FormItem>
                 <div className="flex items-center gap-x-1">
-                  <FormLabel>Background image</FormLabel>
+                  <FormLabel>Billboard image</FormLabel>
                   <FormMessage />
                 </div>
                 <FormControl>
@@ -158,7 +158,12 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
               name="label"
               render={({ field }) => (
                 <FormItem className="ml-6 relative">
-                  <FormLabel className="absolute bottom-12">Label</FormLabel>
+                  <div className="flex flex-row items-center gap-8">
+                    <FormLabel className="absolute bottom-12">
+                      Label {errors.label?.message}
+                    </FormLabel>
+                    {/* <FormMessage /> */}
+                  </div>
                   <FormControl>
                     <Input
                       placeholder="Billboard label"
@@ -168,7 +173,6 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
                       maxLength={151}
                     />
                   </FormControl>
-                  <FormMessage />
                 </FormItem>
               )}
             />

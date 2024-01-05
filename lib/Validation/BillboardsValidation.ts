@@ -3,8 +3,8 @@ import { z } from "zod";
 export const BillboardSchema = z.object({
   label: z
     .string()
-    .min(1, { message: "Cannot be empty." })
-    .max(150, { message: "Too long." }),
+    .min(1, { message: "cannot be empty." })
+    .max(150, { message: "too long." }),
   imageUrl: z.string().min(1, { message: "is required." }),
 });
 

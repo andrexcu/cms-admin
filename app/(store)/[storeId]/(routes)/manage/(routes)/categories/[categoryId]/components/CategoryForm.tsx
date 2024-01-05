@@ -20,6 +20,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import {
+  CategorySchema,
+  TCategorySchema,
+} from "@/lib/Validation/CategoriesValidation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Billboard, Category } from "@prisma/client";
 
@@ -36,13 +40,6 @@ interface CategoryFormProps {
   billboards: Billboard[];
   initialData: Category | null;
 }
-
-const formSchema = z.object({
-  name: z.string().min(1),
-  billboardId: z.string().min(1),
-});
-
-type TformSchema = z.infer<typeof formSchema>;
 
 const CategoryForm = ({ initialData, billboards }: CategoryFormProps) => {
   const [open, setOpen] = useState(false);
@@ -67,15 +64,18 @@ const CategoryForm = ({ initialData, billboards }: CategoryFormProps) => {
   const toastMessage = initialData ? "Category Updated." : "Category created.";
   const action = initialData ? "Save changes" : "Create";
 
-  const form = useForm<TformSchema>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<TCategorySchema>({
+    resolver: zodResolver(CategorySchema),
     defaultValues: initialData || {
       name: "",
       billboardId: "",
     },
   });
 
-  const onSubmit = async (data: TformSchema) => {
+  const {
+    formState: { errors },
+  } = form;
+  const onSubmit = async (data: TCategorySchema) => {
     try {
       setIsLoading(true);
 
@@ -132,13 +132,13 @@ const CategoryForm = ({ initialData, billboards }: CategoryFormProps) => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-8 w-full"
         >
-          <div className="flex flex-col md:flex-row items-center gap-8 ">
+          <div className="flex flex-col md:flex-row gap-8 ">
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem className="md:w-[520px]">
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Name {errors.name?.message}</FormLabel>
                   <FormControl>
                     <>
                       <Input
@@ -149,7 +149,6 @@ const CategoryForm = ({ initialData, billboards }: CategoryFormProps) => {
                       />
                     </>
                   </FormControl>
-                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -158,7 +157,7 @@ const CategoryForm = ({ initialData, billboards }: CategoryFormProps) => {
               name="billboardId"
               render={({ field }) => (
                 <FormItem className="md:w-[520px]">
-                  <FormLabel>Billboard</FormLabel>
+                  <FormLabel>Billboard {errors.billboardId?.message}</FormLabel>
                   <Select
                     disabled={isLoading}
                     onValueChange={field.onChange}
@@ -187,7 +186,6 @@ const CategoryForm = ({ initialData, billboards }: CategoryFormProps) => {
                       )}
                     </SelectContent>
                   </Select>
-                  <FormMessage />
                 </FormItem>
               )}
             />
