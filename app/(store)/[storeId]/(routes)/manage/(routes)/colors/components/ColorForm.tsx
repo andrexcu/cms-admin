@@ -44,6 +44,7 @@ const ColorForm = () => {
   const title = "Create Color";
   const description = "New color for your store";
   const toastMessage = "Color created.";
+  const action = "Create";
 
   const form = useForm<TColorSchema>({
     resolver: zodResolver(ColorSchema),
@@ -172,7 +173,7 @@ const ColorForm = () => {
               <div className="group">
                 <div className="flex flex-row items-center">
                   <p className="absolute bottom-4 right-6 text-muted-foreground text-md opacity-0 pr-12 group-hover:opacity-100 transition-opacity duration-250">
-                    {description}
+                    {action}
                   </p>
                   <Button
                     disabled={isLoading}

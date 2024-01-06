@@ -51,6 +51,7 @@ const CategoryForm = ({ billboards }: CategoryFormProps) => {
   const title = "Create Category";
   const description = "New category for your store";
   const toastMessage = "Category created.";
+  const action = "Create";
 
   const form = useForm<TCategorySchema>({
     resolver: zodResolver(CategorySchema),
@@ -197,7 +198,7 @@ const CategoryForm = ({ billboards }: CategoryFormProps) => {
               <div className="group">
                 <div className="flex flex-row items-center">
                   <p className="absolute bottom-4 right-6 text-muted-foreground text-md opacity-0 pr-12 group-hover:opacity-100 transition-opacity duration-250">
-                    {description}
+                    {action}
                   </p>
                   <Button
                     disabled={isLoading}

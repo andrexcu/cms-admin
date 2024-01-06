@@ -6,7 +6,7 @@ import { Store } from "@prisma/client";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Check, ChevronsUpDown, PlusCircle } from "lucide-react";
+import { Check, ChevronsUpDown, Plus, PlusCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PopoverContent } from "@radix-ui/react-popover";
 import {
@@ -18,6 +18,7 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
+import { Badge } from "../ui/badge";
 
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<
   typeof PopoverTrigger
@@ -36,6 +37,7 @@ export default function StoreSwitcher({
   const router = useRouter();
   const formattedItems = items.map((item) => ({
     label: item.name,
+    type: item.type,
     value: item.id,
   }));
   const currentStore = formattedItems.find(
@@ -82,7 +84,11 @@ export default function StoreSwitcher({
                   onSelect={() => onStoreSelect(store)}
                   className="text-sm"
                 >
-                  {store.label}
+                  {store?.label}
+                  <Badge variant="outline" className="mx-2">
+                    {store?.type}
+                  </Badge>
+
                   <Check
                     className={cn(
                       "ml-auto h-4 w-4",
@@ -103,9 +109,10 @@ export default function StoreSwitcher({
                   setOpen(false);
                   storeModal.onOpen();
                 }}
+                className="justify flex justify-center"
               >
-                <PlusCircle className="mr-2 h-5 w-5" />
-                Create Store
+                <Plus className="mr-2 h-5 w-5" />
+                Create New Store
               </CommandItem>
             </CommandGroup>
           </CommandList>

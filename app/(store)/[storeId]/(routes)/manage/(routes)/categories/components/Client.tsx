@@ -36,6 +36,7 @@ const CategoryClient = ({ data }: CategoryClientProps) => {
       <Separator />
       <ApiList entityName="categories" entityIdName="CategoryId" />
       <Separator />
+
       <DataTable columns={Columns} data={data} searchKey="name" />
     </>
   );

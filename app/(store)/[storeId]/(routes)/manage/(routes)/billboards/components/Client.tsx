@@ -36,6 +36,7 @@ const BillboardClient = ({ data }: BillboardClientProps) => {
       <Separator />
       <ApiList entityName="billboards" entityIdName="billboardId" />
       <Separator />
+
       <DataTable columns={Columns} data={data} searchKey="label" />
     </>
   );

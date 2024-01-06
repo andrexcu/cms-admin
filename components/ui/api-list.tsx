@@ -58,17 +58,18 @@ const ApiList = ({ entityName, entityIdName }: ApiListProps) => {
             </CollapsibleTrigger>
           </div>
         </div>
-
-        <ApiAlert
-          title="GET"
-          variant="public"
-          description={`${baseUrl}/${entityName}`}
-        />
-        <ApiAlert
-          title="GET"
-          variant="public"
-          description={`${baseUrl}/${entityName}/{${entityIdName}}`}
-        />
+        <div className="flex flex-col space-y-2 lg:flex-row lg:space-x-2 lg:space-y-0">
+          <ApiAlert
+            title="GET"
+            variant="public"
+            description={`${baseUrl}/${entityName}`}
+          />
+          <ApiAlert
+            title="GET"
+            variant="public"
+            description={`${baseUrl}/${entityName}/{${entityIdName}}`}
+          />
+        </div>
         <CollapsibleContent className="space-y-2">
           <ApiAlert
             title="POST"

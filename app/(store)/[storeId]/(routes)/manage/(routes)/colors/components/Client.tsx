@@ -36,6 +36,7 @@ const ColorClient = ({ data }: ColorClientProps) => {
       <Separator />
       <ApiList entityName="colors" entityIdName="colorId" />
       <Separator />
+
       <DataTable columns={Columns} data={data} searchKey="name" />
     </>
   );

@@ -20,10 +20,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import { ColorSchema, TColorSchema } from "@/lib/Validation/ColorsValidation";
+import { SizeSchema, TSizeSchema } from "@/lib/Validation/SizesValidation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Billboard, Color } from "@prisma/client";
+import { Billboard, Size } from "@prisma/client";
 
 import axios from "axios";
 import { LogOut, Trash } from "lucide-react";
@@ -34,11 +34,11 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
-interface ColorFormProps {
-  initialData: Color | null;
+interface SizeFormProps {
+  initialData: Size | null;
 }
 
-const ColorForm = ({ initialData }: ColorFormProps) => {
+const SizeForm = ({ initialData }: SizeFormProps) => {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -47,7 +47,7 @@ const ColorForm = ({ initialData }: ColorFormProps) => {
 
   useEffect(() => {
     if (!initialData) {
-      router.push(`/${params.storeId}/manage/colors
+      router.push(`/${params.storeId}/manage/sizes
       `);
     }
   });
@@ -56,13 +56,13 @@ const ColorForm = ({ initialData }: ColorFormProps) => {
     return null;
   }
 
-  const title = initialData ? "Edit Color" : "Create Color";
-  const description = initialData ? "Edit a Color" : "Add a new Color";
-  const toastMessage = initialData ? "Color Updated." : "Color created.";
+  const title = initialData ? "Edit Size" : "Create Size";
+  const description = initialData ? "Edit a Size" : "Add a new Size";
+  const toastMessage = initialData ? "Size Updated." : "Size created.";
   const action = initialData ? "Save changes" : "Create";
 
-  const form = useForm<TColorSchema>({
-    resolver: zodResolver(ColorSchema),
+  const form = useForm<TSizeSchema>({
+    resolver: zodResolver(SizeSchema),
     defaultValues: initialData || {
       name: "",
       value: "",
@@ -72,16 +72,16 @@ const ColorForm = ({ initialData }: ColorFormProps) => {
   const {
     formState: { errors },
   } = form;
-  const onSubmit = async (data: TColorSchema) => {
+  const onSubmit = async (data: TSizeSchema) => {
     try {
       setIsLoading(true);
 
       await axios.patch(
-        `/api/stores/${params.storeId}/colors/${initialData?.id}`,
+        `/api/stores/${params.storeId}/sizes/${initialData?.id}`,
         data
       );
 
-      router.push(`/${params.storeId}/manage/colors`);
+      router.push(`/${params.storeId}/manage/sizes`);
       router.refresh();
       toast.success(toastMessage);
     } catch (error) {
@@ -95,13 +95,13 @@ const ColorForm = ({ initialData }: ColorFormProps) => {
     try {
       setIsLoading(true);
       await axios.delete(
-        `/api/stores/${params.storeId}/colors/${initialData?.id}`
+        `/api/stores/${params.storeId}/sizes/${initialData?.id}`
       );
-      router.push(`/${params.storeId}/manage/colors`);
+      router.push(`/${params.storeId}/manage/sizes`);
       router.refresh();
-      toast.success("Color deleted.");
+      toast.success("Size deleted.");
     } catch (error) {
-      toast.error("Make sure you removed all products using this Color first.");
+      toast.error("Make sure you removed all products using this size first.");
     } finally {
       setIsLoading(false);
       setOpen(false);
@@ -117,7 +117,7 @@ const ColorForm = ({ initialData }: ColorFormProps) => {
       />
       <div className="flex items-center justify-between">
         <Heading title={title} description={description} />
-        <Link href={`/${params.storeId}/manage/colors`}>
+        <Link href={`/${params.storeId}/manage/sizes`}>
           <LogOut className="transform hover:translate-x-2 transition duration-300" />
         </Link>
       </div>
@@ -137,7 +137,7 @@ const ColorForm = ({ initialData }: ColorFormProps) => {
                   <FormControl>
                     <>
                       <Input
-                        placeholder="Color Name"
+                        placeholder="Size Name"
                         {...field}
                         disabled={isLoading}
                         className="hover:bg-slate-300/20 bg-slate-500/10  "
@@ -156,19 +156,13 @@ const ColorForm = ({ initialData }: ColorFormProps) => {
                     <FormLabel>Value {errors.value?.message}</FormLabel>
                   </div>
                   <FormControl>
-                    <div className="flex flex-row gap-x-4">
-                      <Input
-                        placeholder="Color value (hex)"
-                        {...field}
-                        disabled={isLoading}
-                        className="hover:bg-slate-300/20 bg-slate-500/10 w-[200px] md:w-[300px]"
-                        maxLength={51}
-                      />
-                      <div
-                        className="border px-5 rounded-full"
-                        style={{ backgroundColor: field.value }}
-                      />
-                    </div>
+                    <Input
+                      placeholder="Size value"
+                      {...field}
+                      disabled={isLoading}
+                      className="hover:bg-slate-300/20 bg-slate-500/10 w-[200px] md:w-[300px]"
+                      maxLength={51}
+                    />
                   </FormControl>
                 </FormItem>
               )}
@@ -184,7 +178,7 @@ const ColorForm = ({ initialData }: ColorFormProps) => {
                 className=""
                 size="md"
               >
-                Delete Color
+                Delete Size
               </Button>
             </div>
             <div>
@@ -199,4 +193,4 @@ const ColorForm = ({ initialData }: ColorFormProps) => {
   );
 };
 
-export default ColorForm;
+export default SizeForm;

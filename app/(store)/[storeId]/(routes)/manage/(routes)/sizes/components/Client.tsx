@@ -36,6 +36,7 @@ const SizeClient = ({ data }: SizeClientProps) => {
       <Separator />
       <ApiList entityName="sizes" entityIdName="sizeId" />
       <Separator />
+
       <DataTable columns={Columns} data={data} searchKey="name" />
     </>
   );
