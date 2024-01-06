@@ -9,14 +9,14 @@ import { useRouter } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
 import ApiList from "@/components/ui/api-list";
 import { DataTable } from "@/components/ui/data-table";
-import { ColorColumn, Columns } from "./Columns";
+import { SizeColumn, Columns } from "./Columns";
 import { Button } from "@/components/ui/button";
 
-interface ColorClientProps {
-  data: ColorColumn[];
+interface SizeClientProps {
+  data: SizeColumn[];
 }
 
-const ColorClient = ({ data }: ColorClientProps) => {
+const SizeClient = ({ data }: SizeClientProps) => {
   const params = useParams();
   const router = useRouter();
   return (
@@ -24,8 +24,8 @@ const ColorClient = ({ data }: ColorClientProps) => {
       <div className="flex items-center justify-between">
         <div className="flex">
           <Heading
-            title={`Colors`}
-            description="Manage your store's Color"
+            title={`Sizes`}
+            description="Manage your store's Size"
             length={data.length}
           />
         </div>
@@ -34,11 +34,11 @@ const ColorClient = ({ data }: ColorClientProps) => {
         </Link>
       </div>
       <Separator />
-      <ApiList entityName="colors" entityIdName="colorId" />
+      <ApiList entityName="sizes" entityIdName="sizeId" />
       <Separator />
       <DataTable columns={Columns} data={data} searchKey="name" />
     </>
   );
 };
 
-export default ColorClient;
+export default SizeClient;

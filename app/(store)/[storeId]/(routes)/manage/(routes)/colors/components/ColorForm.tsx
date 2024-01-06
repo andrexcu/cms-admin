@@ -42,9 +42,8 @@ import { ColorSchema, TColorSchema } from "@/lib/Validation/ColorsValidation";
 
 const ColorForm = () => {
   const title = "Create Color";
-  const description = "Create Color";
+  const description = "New color for your store";
   const toastMessage = "Color created.";
-  const action = "Create";
 
   const form = useForm<TColorSchema>({
     resolver: zodResolver(ColorSchema),

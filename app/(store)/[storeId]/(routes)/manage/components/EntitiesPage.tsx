@@ -52,7 +52,7 @@ const EntitiesPage = () => {
             "font-bold text-xl w-full flex pt-8 flex-col items-center justify-center "
           )}
         >
-          <Link href="manage/billboards">Sizes</Link>
+          <Link href="manage/sizes">Sizes</Link>
           <p className="text-sm text-muted-foreground">Manage store sizes</p>
         </div>
       </div>

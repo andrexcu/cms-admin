@@ -49,8 +49,8 @@ model Store {
   type       String
   billboards Billboard[]
   categories Category[]
-  // sizes      Size[]
   colors     Color[]
+  sizes      Size[]
   // Product    Product[]
   // Order      Order[]
   createdAt  DateTime    @default(now())
@@ -89,6 +89,15 @@ model Color {
   value     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
 
-  @@index([storeId])
+model Size {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  storeId   String   @db.ObjectId
+  store     Store    @relation(fields: [storeId], references: [id])
+  // products  Product[]
+  name      String
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

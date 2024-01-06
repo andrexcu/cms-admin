@@ -30,10 +30,6 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import ImageUpload from "@/components/ui/image-upload";
-import {
-  CategorySchema,
-  TCategorySchema,
-} from "@/lib/Validation/CategoriesValidation";
 import { Check, Plus, RotateCcw } from "lucide-react";
 import {
   Select,
@@ -42,21 +38,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { SizeSchema, TSizeSchema } from "@/lib/Validation/SizesValidation";
 
-interface CategoryFormProps {
-  billboards: Billboard[];
-}
+const SizeForm = () => {
+  const title = "Create Size";
+  const description = "New size for your store";
+  const toastMessage = "Size created.";
 
-const CategoryForm = ({ billboards }: CategoryFormProps) => {
-  const title = "Create Category";
-  const description = "New category for your store";
-  const toastMessage = "Category created.";
-
-  const form = useForm<TCategorySchema>({
-    resolver: zodResolver(CategorySchema),
+  const form = useForm<TSizeSchema>({
+    resolver: zodResolver(SizeSchema),
     defaultValues: {
       name: "",
-      billboardId: "",
+      value: "",
     },
   });
 
@@ -66,17 +59,17 @@ const CategoryForm = ({ billboards }: CategoryFormProps) => {
     watch,
   } = form;
   const name = watch("name");
-  const billboardId = watch("billboardId");
+  const billboardId = watch("value");
 
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const params = useParams();
 
-  const onSubmit = async (data: TCategorySchema) => {
+  const onSubmit = async (data: TSizeSchema) => {
     try {
       setIsLoading(true);
 
-      await axios.post(`/api/stores/${params.storeId}/categories/`, data);
+      await axios.post(`/api/stores/${params.storeId}/sizes/`, data);
 
       location.reload();
       toast.success(toastMessage);
@@ -87,10 +80,8 @@ const CategoryForm = ({ billboards }: CategoryFormProps) => {
     }
   };
 
-  // console.log(hasError);
-
   return (
-    <DrawerContent className="h-[80%] ">
+    <DrawerContent className="h-[80%]">
       <div className="mx-auto w-full">
         <DrawerHeader>
           <DrawerTitle className="flex flex-row justify-between">
@@ -108,7 +99,7 @@ const CategoryForm = ({ billboards }: CategoryFormProps) => {
                 >
                   <RotateCcw className="h-4 w-4" />
                   <p
-                    onClick={() => reset({ name: "" })}
+                    onClick={() => reset({ name: "", value: "" })}
                     className="text-md px-2"
                   >
                     Reset field
@@ -126,19 +117,18 @@ const CategoryForm = ({ billboards }: CategoryFormProps) => {
           {/* <div className=""> */}
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="">
-              <div className="flex flex-col md:flex-row items-center gap-8 p-10">
+              <div className="flex flex-col lg:flex-row lg:items-center gap-8 p-10">
                 <FormField
                   control={form.control}
                   name="name"
                   render={({ field }) => (
                     <FormItem className=" ">
-                      <div className="flex flex-row items-center gap-x-1">
-                        <FormLabel>Name</FormLabel>
-                        <FormMessage />
+                      <div className="flex flex-row items-center">
+                        <FormLabel>Name {errors.name?.message}</FormLabel>
                       </div>
                       <FormControl>
                         <Input
-                          placeholder="Category Name"
+                          placeholder="Size Name"
                           {...field}
                           disabled={isLoading}
                           className="hover:bg-slate-300/20 bg-slate-500/10 w-[300px] md:w-[400px]"
@@ -150,44 +140,21 @@ const CategoryForm = ({ billboards }: CategoryFormProps) => {
                 />
                 <FormField
                   control={form.control}
-                  name="billboardId"
+                  name="value"
                   render={({ field }) => (
-                    <FormItem className="w-[300px] md:w-[400px]">
-                      <div className="flex flex-row items-center gap-x-1">
-                        <FormLabel>Billboard</FormLabel>
-                        <FormMessage />
+                    <FormItem className=" ">
+                      <div className="flex flex-row items-center">
+                        <FormLabel>Value {errors.value?.message}</FormLabel>
                       </div>
-                      <Select
-                        disabled={isLoading}
-                        onValueChange={field.onChange}
-                        value={field.value}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue
-                              defaultValue={field.value}
-                              placeholder="Select a billboard"
-                            />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className="border ">
-                          {billboards.length > 0 ? (
-                            billboards.map((billboard) => (
-                              <SelectItem
-                                key={billboard.id}
-                                value={billboard.id}
-                              >
-                                {billboard.label}
-                              </SelectItem>
-                            ))
-                          ) : (
-                            <SelectItem value="none" disabled>
-                              No billboards found.
-                            </SelectItem>
-                          )}
-                        </SelectContent>
-                      </Select>
+                      <FormControl>
+                        <Input
+                          placeholder="Size value"
+                          {...field}
+                          disabled={isLoading}
+                          className="hover:bg-slate-300/20 bg-slate-500/10 w-[200px] md:w-[300px]"
+                          maxLength={51}
+                        />
+                      </FormControl>
                     </FormItem>
                   )}
                 />
@@ -217,4 +184,4 @@ const CategoryForm = ({ billboards }: CategoryFormProps) => {
   );
 };
 
-export default CategoryForm;
+export default SizeForm;

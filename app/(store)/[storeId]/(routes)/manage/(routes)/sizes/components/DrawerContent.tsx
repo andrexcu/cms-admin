@@ -2,10 +2,15 @@
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
 import { Plus } from "lucide-react";
-import BillboardForm from "./BillboardForm";
+import SizeForm from "./SizeForm";
 import { useParams } from "next/navigation";
+import { Size } from "@prisma/client";
 
-export function AddNewBillboardDrawer() {
+interface SizeFormProps {
+  Sizes: Size[];
+}
+
+export function AddNewSizeDrawer() {
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -20,13 +25,13 @@ export function AddNewBillboardDrawer() {
                 <Plus size={28} />
               </Button>
               <p className="text-muted-foreground text-md opacity-0 fixed pl-16 group-hover:opacity-100 transition-opacity duration-250">
-                Add a new billboard
+                Add a new Size
               </p>
             </div>
           </div>
         </div>
       </DrawerTrigger>
-      <BillboardForm />
+      <SizeForm />
     </Drawer>
   );
 }

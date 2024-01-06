@@ -36,21 +36,14 @@ import {
 } from "@/lib/Validation/BillboardsValidation";
 import { Check, Plus, RotateCcw } from "lucide-react";
 
-interface BillboardFormProps {
-  initialData: Billboard | null;
-}
-
-const BillboardForm = ({ initialData }: BillboardFormProps) => {
-  const title = initialData ? "Edit billboard" : "Create billboard";
-  const description = initialData ? "Update billboard" : "Create billboard";
-  const toastMessage = initialData
-    ? "Billboard Updated."
-    : "Billboard created.";
-  const action = initialData ? "Save changes" : "Create";
+const BillboardForm = () => {
+  const title = "Create billboard";
+  const description = "New billboard for your store";
+  const toastMessage = "Billboard created";
 
   const form = useForm<TBillboardSchema>({
     resolver: zodResolver(BillboardSchema),
-    defaultValues: initialData || {
+    defaultValues: {
       label: "",
       imageUrl: "",
     },
@@ -71,14 +64,9 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
   const onSubmit = async (data: TBillboardSchema) => {
     try {
       setIsLoading(true);
-      if (initialData) {
-        await axios.patch(
-          `/api/stores/${params.storeId}/billboards/${initialData.id}`,
-          data
-        );
-      } else {
-        await axios.post(`/api/stores/${params.storeId}/billboards/`, data);
-      }
+
+      await axios.post(`/api/stores/${params.storeId}/billboards/`, data);
+
       location.reload();
       toast.success(toastMessage);
     } catch (error) {
@@ -182,7 +170,7 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
                     className="absolute bottom-2 right-2 overflow-hidden group-hover:rounded-full group-hover:bg-accent transition-all duration-250 p-3 group-hover:p-2"
                     size="lg"
                   >
-                    {initialData ? "Update" : <Check size={28} />}
+                    <Check size={28} />
                   </Button>
                 </div>
               </div>
