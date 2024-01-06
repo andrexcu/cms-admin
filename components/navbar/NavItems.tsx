@@ -23,11 +23,15 @@ export function NavItems({
       active:
         pathname === `/${params.storeId}/manage` ||
         pathname === `/${params.storeId}/manage/billboards` ||
-        pathname ===
-          `/${params.storeId}/manage/billboards/${params.billboardId}` ||
         pathname === `/${params.storeId}/manage/categories` ||
         pathname === `/${params.storeId}/manage/colors` ||
-        pathname === `/${params.storeId}/manage/sizes`,
+        pathname === `/${params.storeId}/manage/sizes` ||
+        pathname ===
+          `/${params.storeId}/manage/billboards/${params.billboardId}` ||
+        pathname ===
+          `/${params.storeId}/manage/categories/${params.categoryId}` ||
+        pathname === `/${params.storeId}/manage/colors/${params.colorId}` ||
+        pathname === `/${params.storeId}/manage/sizes/${params.sizeId}`,
     },
     {
       href: `/${params.storeId}/products`,

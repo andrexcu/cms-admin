@@ -136,7 +136,6 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
               <FormItem>
                 <div className="flex items-center gap-x-1">
                   <FormLabel>Billboard image</FormLabel>
-                  <FormMessage />
                 </div>
                 <FormControl>
                   <ImageUpload
@@ -145,7 +144,7 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
                     onChange={(url) => field.onChange(url)}
                     onRemove={() => field.onChange("")}
                     label={label}
-                    error={errors.label?.message}
+                    error={errors.imageUrl?.message}
                   />
                 </FormControl>
               </FormItem>

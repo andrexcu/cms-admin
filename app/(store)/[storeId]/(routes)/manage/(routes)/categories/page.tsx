@@ -7,13 +7,13 @@ import prisma from "@/lib/prisma";
 import { CategoryColumn } from "./components/Columns";
 import { format } from "date-fns";
 
-interface CategorysPageProps {
+interface CategoriesPageProps {
   params: {
     storeId: string;
   };
 }
 
-const CategorysPage = async ({ params }: CategorysPageProps) => {
+const CategoriesPage = async ({ params }: CategoriesPageProps) => {
   const Categories = await prisma.category.findMany({
     where: {
       storeId: params.storeId,
@@ -53,4 +53,4 @@ const CategorysPage = async ({ params }: CategorysPageProps) => {
   );
 };
 
-export default CategorysPage;
+export default CategoriesPage;

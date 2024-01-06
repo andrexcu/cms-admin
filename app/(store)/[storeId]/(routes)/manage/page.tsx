@@ -15,24 +15,6 @@ interface ManagePageProps {
 }
 
 const ManagePage = async () => {
-  // const currentUser = await getCurrentUser();
-  // const userId = currentUser?.id;
-
-  // if (!currentUser) {
-  //   redirect("/auth");
-  // }
-
-  // const store = await prisma?.store.findFirst({
-  //   where: {
-  //     id: params.storeId,
-  //     userId,
-  //   },
-  // });
-
-  // if (!store) {
-  //   redirect("/");
-  // }
-
   return <EntitiesPage />;
 };
 

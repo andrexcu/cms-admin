@@ -7,13 +7,9 @@ import { cn } from "@/lib/utils";
 import { ArrowLeftToLine } from "lucide-react";
 import BillboardsPage from "../(routes)/billboards/page";
 
-// interface EntitiesPageProps {
-//   storeId: string;
-// }
-
 const EntitiesPage = () => {
   return (
-    <div className="flex h-dvh lg:flex-row flex-col w-full">
+    <div className="flex h-dvh lg:h-[830px] lg:flex-row flex-col">
       <div className={cn("h-1/4 lg:h-full lg:w-1/4 lg:border-r")}>
         <div
           className={cn(
@@ -26,7 +22,6 @@ const EntitiesPage = () => {
           </p>
         </div>
       </div>
-
       <div className={cn("h-1/4 lg:h-full lg:w-1/4 lg:border-r ")}>
         <div
           className={cn(
@@ -46,7 +41,7 @@ const EntitiesPage = () => {
             "font-bold text-xl w-full flex pt-8 flex-col items-center justify-center "
           )}
         >
-          <Link href="manage/billboards">Colors</Link>
+          <Link href="manage/colors">Colors</Link>
           <p className="text-sm text-muted-foreground">Manage store colors</p>
         </div>
       </div>
