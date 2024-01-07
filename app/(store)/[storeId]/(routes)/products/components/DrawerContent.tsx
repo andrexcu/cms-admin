@@ -2,10 +2,28 @@
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
 import { Plus } from "lucide-react";
-import BillboardForm from "./BillboardForm";
-import { useParams } from "next/navigation";
 
-export function AddNewBillboardDrawer() {
+import { useParams } from "next/navigation";
+import { Category, Color, Image, Product, Size } from "@prisma/client";
+import ProductForm from "./ProductForm";
+
+interface ProductFormProps {
+  categories: Category[];
+  sizes: Size[];
+  colors: Color[];
+  initialData:
+    | (Product & {
+        images: Image[];
+      })
+    | null;
+}
+
+export function AddNewBillboardDrawer({
+  categories,
+  sizes,
+  colors,
+  initialData,
+}: ProductFormProps) {
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -26,7 +44,12 @@ export function AddNewBillboardDrawer() {
           </div>
         </div>
       </DrawerTrigger>
-      <BillboardForm />
+      <ProductForm
+        categories={categories}
+        sizes={sizes}
+        colors={colors}
+        initialData={initialData}
+      />
     </Drawer>
   );
 }

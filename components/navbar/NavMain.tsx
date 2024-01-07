@@ -12,7 +12,7 @@ interface NavMainProps {
   stores: any;
   currentUser: any;
 }
-const TOP_OFFSET = 1;
+
 const NavMain = ({ stores, currentUser }: NavMainProps) => {
   return (
     <header
@@ -21,9 +21,12 @@ const NavMain = ({ stores, currentUser }: NavMainProps) => {
   `}
     >
       <nav className="border-b flex flex-col lg:flex-row justify-between">
-        <div className="flex h-20 items-center justify-center pl-4 py-4 gap-4">
-          <NavItems className="rounded-full bg-slate-500/15 p-4 " />
-          <StoreSwitcher items={stores} className="hidden lg:flex" />
+        <div className="flex h-20 items-center justify-center pl-4 gap-4">
+          <NavItems
+            stores={stores}
+            className="rounded-full bg-slate-500/15 p-2"
+          />
+          {/* <StoreSwitcher items={stores} className="hidden lg:flex" /> */}
         </div>
 
         <div className="flex flex-row h-20 justify-center items-center w-full gap-x-2">

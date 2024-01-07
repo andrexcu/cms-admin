@@ -62,7 +62,7 @@ export default function StoreSwitcher({
           aria-expanded={open}
           aria-label="Select a store"
           className={cn(
-            "w-[350px] lg:w-[350px] xl:w-[400px] h-12 justify-between",
+            "w-[320px] xl:w-[400px] h-10 justify-between",
             className
           )}
         >
@@ -72,7 +72,7 @@ export default function StoreSwitcher({
           <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[350px] lg:w-[350px] xl:w-[400px] p-0 z-50">
+      <PopoverContent className="w-[320px] xl:w-[400px] p-0 z-50 lg:mr-10  ">
         <Command>
           <CommandList>
             <CommandInput placeholder="Search store..." />

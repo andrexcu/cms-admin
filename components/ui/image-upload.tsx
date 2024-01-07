@@ -35,7 +35,7 @@ interface ImageUploadProps {
   onChange: (value: string) => void;
   onRemove: (value: string) => void;
   value: string[];
-  label: string;
+  label?: string;
   error: string | undefined;
 }
 
@@ -47,13 +47,15 @@ export default function ImageUpload({
   label,
   error,
 }: ImageUploadProps) {
-  // const [images, setImages] = useState<ImageUploadProps[]>();
+  const [currentValue, setCurrentValue] = useState<string[]>([]);
 
   const onUpload = (result: any) => {
     const parsedResult = JSON.parse(result);
+
     const url = parsedResult[0]?.url;
+
     if (url) {
-      onChange(url); // Update with the URL value
+      onChange(url);
     }
   };
 
@@ -95,29 +97,34 @@ export default function ImageUpload({
       </div>
       {/* bg-black transition duration-300 ease-in-out transform hover:scale-105 */}
       {/* rounded-lg flex items-center justify-center p-6  */}
-      <div className="w-full p-6">
-        <Carousel
-          className={`h-[420px] border border-secondary overflow-hidden
-          `}
-        >
-          <CarouselContent className="m-2">
-            <CarouselItem className="p-2">
-              <Card className="rounded-lg ">
-                {value.length >= 1 ? (
-                  value?.map((url) => (
-                    <CardContent
-                      key={url}
-                      className="relative h-[380px] bg-secondary flex items-center justify-center rounded-lg "
-                    >
+      <div className="flex flex-col gap-y-2 w-full p-6">
+        {!label && error && (
+          <span className="text-red-700">Product Image is required</span>
+        )}
+        {!label && !error && <span>Product Image</span>}
+        <div className="overflow-hidden">
+          <Carousel
+            className={`h-[420px] border border-secondary
+          }`}
+            orientation={`${value.length > 1 ? "horizontal" : "vertical"}`}
+          >
+            <CarouselContent className="m-2">
+              {value.map((url) => (
+                <CarouselItem key={url} className="p-2">
+                  <Card className="rounded-lg">
+                    <CardContent className="relative h-[380px] bg-secondary flex items-center justify-center rounded-lg">
                       <Image
                         src={url}
                         alt="image"
                         fill
                         sizes="100vh"
-                        className="object-cover h-[400px] transition duration-300 ease-in-out transform hover:scale-110 opacity-70"
+                        className={`object-cover h-[400px] ${
+                          label && value.length <= 1
+                            ? "transition duration-300 ease-in-out transform hover:scale-110 opacity-70"
+                            : ""
+                        }`}
                         priority
                       />
-
                       <p className="absolute top-0 right-0">
                         <X
                           size={30}
@@ -125,31 +132,21 @@ export default function ImageUpload({
                           onClick={() => onRemove(url)}
                         />
                       </p>
+
                       {label && (
                         <p className="absolute top-30 p-4 max-w-md text-2xl text-bold text-center text-primary break-words">
                           {label}
                         </p>
                       )}
                     </CardContent>
-                  ))
-                ) : (
-                  <CardContent className="relative h-[380px] bg-secondary flex flex-col items-center justify-center rounded-lg opacity-60">
-                    <p className="text-muted-foreground">
-                      No Image uploaded yet.
-                    </p>
-                    {error && (
-                      <span className="text-red-500">
-                        Billboard Image is required
-                      </span>
-                    )}
-                  </CardContent>
-                )}
-              </Card>
-            </CarouselItem>
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
+                  </Card>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
+        </div>
       </div>
     </>
   );

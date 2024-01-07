@@ -3,11 +3,15 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
+import StoreSwitcher from "./StoreSwitcher";
+import { Store } from "@prisma/client";
 
-export function NavItems({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLElement>) {
+interface NavItemsProps {
+  stores: Store[];
+  className: string;
+}
+
+export function NavItems({ className, stores, ...props }: NavItemsProps) {
   const pathname = usePathname();
   const params = useParams();
 
@@ -56,7 +60,7 @@ export function NavItems({
           href={route.href}
           key={route.href}
           className={cn(
-            "text-md font-medium transition-colors hover:text-primary rounded-full",
+            "text-md font-medium transition-colors hover:text-primary rounded-full p-2 duration-500",
             route.active
               ? "text-white dark:text-white bg-slate-950/80 rounded-full py-0.5 px-2 hover:text-gray-300"
               : "text-muted-foreground"
@@ -65,6 +69,7 @@ export function NavItems({
           {route.label}
         </Link>
       ))}
+      <StoreSwitcher items={stores} className="rounded-full hidden lg:flex" />
     </nav>
   );
 }

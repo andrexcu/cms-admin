@@ -1,79 +1,159 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { ImagePlus, Trash } from "lucide-react";
-import { CldUploadWidget } from "next-cloudinary";
-import { CldImage } from "next-cloudinary";
-import { Hydrate } from "../Hydrate";
+// You need to import our styles for the button to look right. Best to import in the root /layout.tsx but this is fine
+// import "@uploadthing/react/styles.css"
 
+import { UploadButton } from "@/src/utils/uploadthing";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { FormLabel } from "./form";
+import { FieldError } from "react-hook-form";
+import { Button } from "./button";
+import { X } from "lucide-react";
+
+interface ImageProps {
+  name: string;
+  size: number;
+  key: string;
+  serverData: {
+    uploadedBy: string;
+  };
+  url: string;
+}
 interface ImageUploadProps {
   disabled?: boolean;
   onChange: (value: string) => void;
   onRemove: (value: string) => void;
   value: string[];
+  label?: string;
+  error: string | undefined;
 }
 
-const ImageUpload = ({
+export default function ImageUpload({
   disabled,
   onChange,
   onRemove,
   value,
-}: ImageUploadProps) => {
+  label,
+  error,
+}: ImageUploadProps) {
+  const [currentValue, setCurrentValue] = useState<string[]>([]);
+
   const onUpload = (result: any) => {
-    onChange(result.info.secure_url);
+    const parsedResult = JSON.parse(result);
+
+    const url = parsedResult[0]?.url;
+
+    if (url) {
+      onChange(url);
+    }
   };
 
+  console.log(value.length);
   return (
-    <Hydrate>
-      <div>
-        <div className="mb-4 flex items-center gap-4">
-          {value.map((url) => (
-            <div
-              key={url}
-              className="relative w-[200px] h-[200px] rounded-md overflow-hidden"
-            >
-              <div className="z-10 absolute top-2 right-2">
-                <Button
-                  type="button"
-                  onClick={() => onRemove(url)}
-                  variant="destructive"
-                  size="icon"
-                >
-                  <Trash className="h-4 w-4" />
-                </Button>
-              </div>
-              {/* <Image fill className="object-cover" alt="Image" src={url} /> */}
-              <CldImage
-                fill
-                className="object-cover"
-                src={url}
-                alt="Image"
-                sizes="100vh"
-              />
-            </div>
-          ))}
-        </div>
-        <CldUploadWidget onUpload={onUpload} uploadPreset="emhzw2ki">
-          {({ open }) => {
-            const onClick = () => {
-              open();
-            };
-            return (
-              <Button
-                type="button"
-                disabled={disabled}
-                variant="secondary"
-                onClick={onClick}
-              >
-                <ImagePlus className="h-4 w-4 mr-2" />
-                Upload an Image
-              </Button>
-            );
+    <>
+      <div className="flex flex-col ml-6 items-start justify-start">
+        {/* <FormLabel className="cursor-default text-muted-foreground">
+          Upload an image
+        </FormLabel> */}
+        <UploadButton
+          endpoint="imageUploader"
+          appearance={{
+            button({ ready, isUploading }) {
+              return `text-sm text-white bg-zinc-900 ${
+                ready
+                  ? "bg-zinc-800 mr-16 rounded-none px-6"
+                  : "bg-zinc-900 text-black cursor-not-allowed"
+              } ${isUploading ? "bg-zinc-900" : ""}`;
+            },
+            container: "rounded-none pr-2 custom-container",
+            allowedContent: "hidden",
           }}
-        </CldUploadWidget>
-      </div>
-    </Hydrate>
-  );
-};
+          onClientUploadComplete={(res) => {
+            if (res) {
+              // setImages(res);
 
-export default ImageUpload;
+              const json = JSON.stringify(res);
+              onUpload(json);
+              // console.log(json);
+              // console.log(value);
+            }
+            //alert("Upload Completed");
+          }}
+          onUploadError={(error: Error) => {
+            // Do something with the error.
+            alert(`ERROR! ${error.message}`);
+          }}
+        />
+      </div>
+      {/* bg-black transition duration-300 ease-in-out transform hover:scale-105 */}
+      {/* rounded-lg flex items-center justify-center p-6  */}
+      <div className="w-full p-6">
+        <Carousel
+          className={`h-[420px] border border-secondary overflow-hidden
+          `}
+        >
+          <CarouselContent className="m-2">
+            <CarouselItem className="p-2">
+              <Card className="rounded-lg ">
+                {value.length >= 1 ? (
+                  value?.map((url) => (
+                    <CardContent
+                      key={url}
+                      className="relative h-[380px] bg-secondary flex items-center justify-center rounded-lg "
+                    >
+                      <Image
+                        src={url}
+                        alt="image"
+                        fill
+                        sizes="100vh"
+                        className="object-cover h-[400px] transition duration-300 ease-in-out transform hover:scale-110 opacity-70"
+                        priority
+                      />
+
+                      <p className="absolute top-0 right-0">
+                        <X
+                          size={30}
+                          className="text-primary"
+                          onClick={() => onRemove(url)}
+                        />
+                      </p>
+                      {label && (
+                        <p className="absolute top-30 p-4 max-w-md text-2xl text-bold text-center text-primary break-words">
+                          {label}
+                        </p>
+                      )}
+                    </CardContent>
+                  ))
+                ) : (
+                  <CardContent className="relative h-[380px] bg-secondary flex flex-col items-center justify-center rounded-lg opacity-60">
+                    <p className="text-muted-foreground">
+                      No Image uploaded yet.
+                    </p>
+                    {error && (
+                      <span className="text-red-500">
+                        Billboard Image is required
+                      </span>
+                    )}
+                  </CardContent>
+                )}
+              </Card>
+            </CarouselItem>
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+      </div>
+    </>
+  );
+}

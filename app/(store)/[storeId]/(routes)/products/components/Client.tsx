@@ -9,14 +9,14 @@ import { useRouter } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
 import ApiList from "@/components/ui/api-list";
 import { DataTable } from "@/components/ui/data-table";
-import { BillboardColumn, Columns } from "./Columns";
+import { ProductColumn, Columns } from "./Columns";
 import { Button } from "@/components/ui/button";
 
-interface BillboardClientProps {
-  data: BillboardColumn[];
+interface ProductClientProps {
+  data: ProductColumn[];
 }
 
-const BillboardClient = ({ data }: BillboardClientProps) => {
+const ProductClient = ({ data }: ProductClientProps) => {
   const params = useParams();
   const router = useRouter();
   return (
@@ -24,22 +24,22 @@ const BillboardClient = ({ data }: BillboardClientProps) => {
       <div className="flex items-center justify-between">
         <div className="flex">
           <Heading
-            title={`Billboards`}
-            description="Manage your store's billboard"
+            title={`Products`}
+            description="Manage your store's Product"
             length={data.length}
           />
         </div>
-        <Link href={`/${params.storeId}/manage`}>
+        {/* <Link href={`/${params.storeId}/manage`}>
           <LogOut className="transform hover:translate-x-2 transition duration-300" />
-        </Link>
+        </Link> */}
       </div>
       <Separator />
-      <ApiList entityName="billboards" entityIdName="billboardId" />
+      <ApiList entityName="products" entityIdName="productId" />
       <Separator />
 
-      <DataTable columns={Columns} data={data} searchKey="label" />
+      <DataTable columns={Columns} data={data} searchKey="name" />
     </>
   );
 };
 
-export default BillboardClient;
+export default ProductClient;
