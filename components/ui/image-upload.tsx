@@ -5,9 +5,6 @@
 
 import { UploadButton } from "@/src/utils/uploadthing";
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
@@ -16,10 +13,9 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { FormLabel } from "./form";
-import { FieldError } from "react-hook-form";
-import { Button } from "./button";
 import { X } from "lucide-react";
+import Image from "next/image";
+import { useState } from "react";
 
 interface ImageProps {
   name: string;
@@ -120,7 +116,9 @@ export default function ImageUpload({
                           </span>
                         )}
                         {type === "product" && !error && (
-                          <span>Product Image</span>
+                          <span className="text-muted-foreground">
+                            Product Image
+                          </span>
                         )}
                         {type === "billboard" && error && (
                           <span className="text-red-700">
@@ -128,7 +126,9 @@ export default function ImageUpload({
                           </span>
                         )}
                         {type === "billboard" && !error && (
-                          <span>Billboard Image</span>
+                          <span className="text-muted-foreground">
+                            Billboard Image
+                          </span>
                         )}
                       </p>
                     </CardContent>

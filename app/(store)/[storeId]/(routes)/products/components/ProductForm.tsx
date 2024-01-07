@@ -4,8 +4,6 @@ import { Button } from "@/components/ui/button";
 import {
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
@@ -16,7 +14,6 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import Heading from "@/components/ui/heading";
 
@@ -32,11 +29,7 @@ import { toast } from "sonner";
 
 import ImageUpload from "@/components/ui/image-upload";
 
-import { Check, Plus, RotateCcw } from "lucide-react";
-import {
-  ProductSchema,
-  TProductSchema,
-} from "@/lib/Validation/ProductsValidation";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectContent,
@@ -44,7 +37,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
+import {
+  ProductSchema,
+  TProductSchema,
+} from "@/lib/Validation/ProductsValidation";
+import { Check, RotateCcw } from "lucide-react";
 
 interface ProductFormProps {
   categories: Category[];
@@ -115,8 +112,6 @@ const ProductForm = ({
     }
   };
 
-  console.log(images);
-
   return (
     <DrawerContent className="h-[80%] ">
       <div className="mx-auto w-full">
@@ -125,7 +120,7 @@ const ProductForm = ({
             <div className="hidden sm:flex">
               <Heading title={title} description={description} />
             </div>
-
+            <div className="flex sm:hidden"></div>
             <div className="flex gap-4 items-center">
               <div className="group">
                 <Button

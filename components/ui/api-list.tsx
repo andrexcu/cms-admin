@@ -3,7 +3,7 @@
 import { useOrigin } from "@/app/hooks/useOrigin";
 import { useParams } from "next/navigation";
 import { ApiAlert } from "./api-alert";
-import { ChevronsUpDown, Plus, X } from "lucide-react";
+import { ChevronRight, ChevronsUpDown, Plus, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -32,7 +32,10 @@ const ApiList = ({ entityName, entityIdName }: ApiListProps) => {
         className="w-full space-y-2"
       >
         <div className="flex items-center justify-between space-x-4">
-          <h4 className="text-sm font-semibold">NEXT API ENDPOINTS</h4>
+          <h4 className="flex flex-row items-center text-sm font-semibold">
+            <ChevronRight />
+            NEXT API ENDPOINTS
+          </h4>
           <div className="flex items-center justify-center">
             {!isOpen ? (
               <span className="bg-muted rounded-full px-2 text-sm">

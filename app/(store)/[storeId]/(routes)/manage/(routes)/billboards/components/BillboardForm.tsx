@@ -4,8 +4,6 @@ import { Button } from "@/components/ui/button";
 import {
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
@@ -15,14 +13,12 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import Heading from "@/components/ui/heading";
 
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Billboard } from "@prisma/client";
 import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -34,7 +30,7 @@ import {
   BillboardSchema,
   TBillboardSchema,
 } from "@/lib/Validation/BillboardsValidation";
-import { Check, Plus, RotateCcw } from "lucide-react";
+import { Check, RotateCcw } from "lucide-react";
 
 const BillboardForm = () => {
   const title = "Create billboard";
@@ -87,7 +83,7 @@ const BillboardForm = () => {
             <div className="hidden sm:flex">
               <Heading title={title} description={description} />
             </div>
-            <div className=""></div>
+            <div className="flex sm:hidden"></div>
             <div className="flex gap-4 items-center">
               <div className="group">
                 <Button

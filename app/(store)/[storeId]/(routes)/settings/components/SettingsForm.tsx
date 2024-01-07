@@ -127,11 +127,13 @@ const SettingsForm = ({ initialData }: SettingsFormProps) => {
           </Form>
         </div>
         <Separator className="flex lg:hidden" />
-        <ApiAlert
-          title="NEXT API ENDPOINT"
-          description={`${origin}/api/stores/${initialData.id}`}
-          variant="public"
-        />
+        <div className="w-full">
+          <ApiAlert
+            title="GET"
+            description={`${origin}/api/stores/${initialData.id}`}
+            variant="public"
+          />
+        </div>
       </div>
     </>
   );
