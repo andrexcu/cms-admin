@@ -11,12 +11,19 @@ import ApiList from "@/components/ui/api-list";
 import { DataTable } from "@/components/ui/data-table";
 import { ProductColumn, Columns } from "./Columns";
 import { Button } from "@/components/ui/button";
+import ProductItem from "./ProductItem";
+import { Category, Color, Image, Product, Size } from "@prisma/client";
 
 interface ProductClientProps {
   data: ProductColumn[];
+  latestProduct:
+    | (Product & { images: Image[] } & { category: Category } & {
+        size: Size;
+      } & { color: Color })
+    | null;
 }
 
-const ProductClient = ({ data }: ProductClientProps) => {
+const ProductClient = ({ data, latestProduct }: ProductClientProps) => {
   const params = useParams();
   const router = useRouter();
   return (
@@ -29,10 +36,9 @@ const ProductClient = ({ data }: ProductClientProps) => {
             length={data.length}
           />
         </div>
-        {/* <Link href={`/${params.storeId}/manage`}>
-          <LogOut className="transform hover:translate-x-2 transition duration-300" />
-        </Link> */}
       </div>
+      <Separator />
+      <ProductItem latestProduct={latestProduct} />
       <Separator />
       <ApiList entityName="products" entityIdName="productId" />
       <Separator />

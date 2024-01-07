@@ -67,11 +67,32 @@ const ProductsPage = async ({ params }: ProductsPageProps) => {
       storeId: params.storeId,
     },
   });
+
+  const latestProduct = await prisma.product.findFirst({
+    where: {
+      storeId: params.storeId,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      images: true,
+      category: true,
+      size: true,
+      color: true,
+    },
+  });
+
   return (
     <>
       <div className="flex flex-col">
         <div className="flex flex-col space-y-4 p-8 pt-6">
-          <BillboardClient data={formattedProducts} />
+          {latestProduct && (
+            <BillboardClient
+              data={formattedProducts}
+              latestProduct={latestProduct}
+            />
+          )}
         </div>
       </div>
       <div className="fixed bottom-0 left-0 p-9">

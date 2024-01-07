@@ -38,7 +38,7 @@ export function AddNewBillboardDrawer({
                 <Plus size={28} />
               </Button>
               <p className="text-muted-foreground text-md opacity-0 fixed pl-16 group-hover:opacity-100 transition-opacity duration-250">
-                Add a new billboard
+                Add a new product
               </p>
             </div>
           </div>

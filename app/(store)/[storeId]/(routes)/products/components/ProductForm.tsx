@@ -115,6 +115,8 @@ const ProductForm = ({
     }
   };
 
+  console.log(images);
+
   return (
     <DrawerContent className="h-[80%] ">
       <div className="mx-auto w-full">
@@ -133,10 +135,7 @@ const ProductForm = ({
                   size="md"
                 >
                   <RotateCcw className="h-4 w-4" />
-                  <p
-                    onClick={() => reset({ name: "" })}
-                    className="text-md px-2"
-                  >
+                  <p onClick={() => reset()} className="text-md px-2">
                     Reset field
                   </p>
                 </Button>
@@ -152,7 +151,7 @@ const ProductForm = ({
         <div className=" h-[600px]">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="">
-              <div className="grid grid-cols-2 justify-between">
+              <div className="grid grid-cols-1 lg:grid-cols-2 justify-between">
                 <div className="">
                   <div className="flex flex-row p-4 gap-4">
                     <FormField
@@ -186,6 +185,7 @@ const ProductForm = ({
                               disabled={isLoading}
                               className="hover:bg-slate-300/20 bg-slate-500/10"
                               maxLength={151}
+                              type="number"
                             />
                           </FormControl>
                         </FormItem>
@@ -234,127 +234,131 @@ const ProductForm = ({
                       )}
                     />
                   </div>
-                  <div className="flex flex-row mt-2 gap-x-4 p-4">
-                    <FormField
-                      control={form.control}
-                      name="sizeId"
-                      render={({ field }) => (
-                        <FormItem className="w-full">
-                          <FormLabel>Size {errors.sizeId?.message}</FormLabel>
-                          <Select
-                            disabled={isLoading}
-                            onValueChange={field.onChange}
-                            value={field.value}
-                            defaultValue={field.value}
-                          >
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue
-                                  defaultValue={field.value}
-                                  placeholder="Select a size"
-                                />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              {sizes.length > 0 ? (
-                                sizes.map((size) => (
-                                  <SelectItem key={size.id} value={size.id}>
-                                    {size.name}
+                  <div>
+                    <div className="flex flex-row mt-2 gap-x-4 p-4 ">
+                      <FormField
+                        control={form.control}
+                        name="sizeId"
+                        render={({ field }) => (
+                          <FormItem className="w-full">
+                            <FormLabel>Size {errors.sizeId?.message}</FormLabel>
+                            <Select
+                              disabled={isLoading}
+                              onValueChange={field.onChange}
+                              value={field.value}
+                              defaultValue={field.value}
+                            >
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue
+                                    defaultValue={field.value}
+                                    placeholder="Select a size"
+                                  />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {sizes.length > 0 ? (
+                                  sizes.map((size) => (
+                                    <SelectItem key={size.id} value={size.id}>
+                                      {size.name}
+                                    </SelectItem>
+                                  ))
+                                ) : (
+                                  <SelectItem value="none" disabled>
+                                    No sizes found.
                                   </SelectItem>
-                                ))
-                              ) : (
-                                <SelectItem value="none" disabled>
-                                  No sizes found.
-                                </SelectItem>
-                              )}
-                            </SelectContent>
-                          </Select>
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="colorId"
-                      render={({ field }) => (
-                        <FormItem className="w-full">
-                          <FormLabel>Color {errors.colorId?.message}</FormLabel>
-                          <Select
-                            disabled={isLoading}
-                            onValueChange={field.onChange}
-                            value={field.value}
-                            defaultValue={field.value}
-                          >
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue
-                                  defaultValue={field.value}
-                                  placeholder="Select a color"
-                                />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              {colors.length > 0 ? (
-                                colors.map((color) => (
-                                  <SelectItem key={color.id} value={color.id}>
-                                    {color.name}
+                                )}
+                              </SelectContent>
+                            </Select>
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="colorId"
+                        render={({ field }) => (
+                          <FormItem className="w-full">
+                            <FormLabel>
+                              Color {errors.colorId?.message}
+                            </FormLabel>
+                            <Select
+                              disabled={isLoading}
+                              onValueChange={field.onChange}
+                              value={field.value}
+                              defaultValue={field.value}
+                            >
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue
+                                    defaultValue={field.value}
+                                    placeholder="Select a color"
+                                  />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {colors.length > 0 ? (
+                                  colors.map((color) => (
+                                    <SelectItem key={color.id} value={color.id}>
+                                      {color.name}
+                                    </SelectItem>
+                                  ))
+                                ) : (
+                                  <SelectItem value="none" disabled>
+                                    No colors found.
                                   </SelectItem>
-                                ))
-                              ) : (
-                                <SelectItem value="none" disabled>
-                                  No colors found.
-                                </SelectItem>
-                              )}
-                            </SelectContent>
-                          </Select>
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                  <div className="">
-                    <FormField
-                      control={form.control}
-                      name="isFeatured"
-                      render={({ field }) => (
-                        <FormItem className="flex flex-row items-start space-x-3 space-y-0 randed-md  p-4">
-                          <FormControl>
-                            <Checkbox
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                            />
-                          </FormControl>
-                          <div className="space-y-1 leading-none">
-                            <FormLabel>Featured</FormLabel>
-                            <FormDescription>
-                              This product will appear on the home page
-                            </FormDescription>
-                          </div>
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="isArchived"
-                      render={({ field }) => (
-                        <FormItem className="flex flex-row items-start space-x-3 space-y-0 randed-md  p-4">
-                          <FormControl>
-                            <Checkbox
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                            />
-                          </FormControl>
-                          <div className="space-y-1 leading-none">
-                            <FormLabel>Archived</FormLabel>
-                            <FormDescription>
-                              This product will not appear anywhere in the
-                              store.
-                            </FormDescription>
-                          </div>
-                        </FormItem>
-                      )}
-                    />
+                                )}
+                              </SelectContent>
+                            </Select>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div className="flex lg:block ">
+                      <FormField
+                        control={form.control}
+                        name="isFeatured"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-row items-start space-x-3 space-y-0 randed-md  p-4">
+                            <FormControl>
+                              <Checkbox
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                              />
+                            </FormControl>
+                            <div className="space-y-1 leading-none">
+                              <FormLabel>Featured</FormLabel>
+                              <FormDescription className="">
+                                This product will appear on the home page
+                              </FormDescription>
+                            </div>
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="isArchived"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-row items-start space-x-3 space-y-0 randed-md  p-4">
+                            <FormControl>
+                              <Checkbox
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                              />
+                            </FormControl>
+                            <div className="space-y-1 leading-none">
+                              <FormLabel>Archived</FormLabel>
+                              <FormDescription className="">
+                                This product will not appear anywhere in the
+                                store.
+                              </FormDescription>
+                            </div>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
                   </div>
                 </div>
-                <div>
+                <div className="">
                   <FormField
                     control={form.control}
                     name="images"
@@ -365,9 +369,13 @@ const ProductForm = ({
                             <ImageUpload
                               value={field.value.map((image) => image.url)}
                               disabled={isLoading}
-                              onChange={(url) =>
-                                field.onChange([...field.value, { url }])
-                              }
+                              onChange={(urls: any) => {
+                                const updatedValue = [
+                                  ...field.value,
+                                  ...urls.map((url: any) => ({ url })),
+                                ];
+                                field.onChange(updatedValue);
+                              }}
                               onRemove={(url) =>
                                 field.onChange([
                                   ...field.value.filter(
@@ -376,6 +384,7 @@ const ProductForm = ({
                                 ])
                               }
                               error={errors.images?.message}
+                              type="product"
                             />
                           </div>
                         </FormControl>

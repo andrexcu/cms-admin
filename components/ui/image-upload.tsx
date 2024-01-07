@@ -37,6 +37,7 @@ interface ImageUploadProps {
   value: string[];
   label?: string;
   error: string | undefined;
+  type: string;
 }
 
 export default function ImageUpload({
@@ -46,32 +47,35 @@ export default function ImageUpload({
   value,
   label,
   error,
+  type,
 }: ImageUploadProps) {
   const [currentValue, setCurrentValue] = useState<string[]>([]);
 
   const onUpload = (result: any) => {
+    // console.log(JSON.parse(result));
     const parsedResult = JSON.parse(result);
 
-    const url = parsedResult[0]?.url;
-
-    if (url) {
+    const url = parsedResult[0].url;
+    if (type === "billboard") {
       onChange(url);
+    }
+
+    const urls = parsedResult.map((item: any) => item.url);
+    if (type === "product") {
+      onChange(urls);
     }
   };
 
   return (
     <>
       <div className="flex flex-col ml-6 items-start justify-start">
-        {/* <FormLabel className="cursor-default text-muted-foreground">
-          Upload an image
-        </FormLabel> */}
         <UploadButton
           endpoint="imageUploader"
           appearance={{
             button({ ready, isUploading }) {
               return `text-sm text-white bg-zinc-900 ${
                 ready
-                  ? "bg-zinc-800 mr-16 rounded-none px-6"
+                  ? "bg-zinc-800 mr-16 rounded-none px-4"
                   : "bg-zinc-900 text-black cursor-not-allowed"
               } ${isUploading ? "bg-zinc-900" : ""}`;
             },
@@ -80,14 +84,9 @@ export default function ImageUpload({
           }}
           onClientUploadComplete={(res) => {
             if (res) {
-              // setImages(res);
-
               const json = JSON.stringify(res);
               onUpload(json);
-              // console.log(json);
-              // console.log(value);
             }
-            //alert("Upload Completed");
           }}
           onUploadError={(error: Error) => {
             // Do something with the error.
@@ -98,21 +97,55 @@ export default function ImageUpload({
       {/* bg-black transition duration-300 ease-in-out transform hover:scale-105 */}
       {/* rounded-lg flex items-center justify-center p-6  */}
       <div className="flex flex-col gap-y-2 w-full p-6">
-        {!label && error && (
-          <span className="text-red-700">Product Image is required</span>
-        )}
-        {!label && !error && <span>Product Image</span>}
-        <div className="overflow-hidden">
+        <div className="">
           <Carousel
-            className={`h-[420px] border border-secondary
+            className={`border border-secondary
+            ${type === "product" ? "h-[200px] lg:h-[420px]" : "h-[420px]"}
           }`}
-            orientation={`${value.length > 1 ? "horizontal" : "vertical"}`}
           >
             <CarouselContent className="m-2">
+              {value.length === 0 && (
+                <CarouselItem className="p-2">
+                  <Card className="rounded-lg">
+                    <CardContent
+                      className={`relative bg-secondary flex items-center justify-center rounded-lg
+                  ${
+                    type === "product" ? "h-[165px] lg:h-[380px]" : "h-[420px]"
+                  }`}
+                    >
+                      <p className="absolute max-w-md text-md text-center break-words">
+                        {type === "product" && error && (
+                          <span className="text-red-700">
+                            Product Image is required
+                          </span>
+                        )}
+                        {type === "product" && !error && (
+                          <span>Product Image</span>
+                        )}
+                        {type === "billboard" && error && (
+                          <span className="text-red-700">
+                            Billboard Image is required
+                          </span>
+                        )}
+                        {type === "billboard" && !error && (
+                          <span>Billboard Image</span>
+                        )}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </CarouselItem>
+              )}
               {value.map((url) => (
                 <CarouselItem key={url} className="p-2">
                   <Card className="rounded-lg">
-                    <CardContent className="relative h-[380px] bg-secondary flex items-center justify-center rounded-lg">
+                    <CardContent
+                      className={`relative bg-secondary flex items-center justify-center rounded-lg
+                    ${
+                      type === "product"
+                        ? "h-[165px] lg:h-[380px]"
+                        : "h-[420px]"
+                    }`}
+                    >
                       <Image
                         src={url}
                         alt="image"
@@ -143,8 +176,10 @@ export default function ImageUpload({
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            <CarouselPrevious
+              className={`${value.length <= 1 ? "hidden" : ""}`}
+            />
+            <CarouselNext className={`${value.length <= 1 ? "hidden" : ""}`} />
           </Carousel>
         </div>
       </div>
