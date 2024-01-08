@@ -40,7 +40,9 @@ export function NavItems({ className, stores, ...props }: NavItemsProps) {
     {
       href: `/${params.storeId}/products`,
       label: "Products",
-      active: pathname === `/${params.storeId}/products`,
+      active:
+        pathname === `/${params.storeId}/products` ||
+        pathname === `/${params.storeId}/products/${params.productId}`,
     },
     {
       href: `/${params.storeId}/orders`,

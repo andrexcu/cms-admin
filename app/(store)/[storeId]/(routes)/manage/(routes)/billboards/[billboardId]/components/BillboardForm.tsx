@@ -145,6 +145,7 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
                     onRemove={() => field.onChange("")}
                     label={label}
                     error={errors.imageUrl?.message}
+                    type="billboard"
                   />
                 </FormControl>
               </FormItem>

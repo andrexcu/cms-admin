@@ -92,11 +92,15 @@ export default function ImageUpload({
       </div>
       {/* bg-black transition duration-300 ease-in-out transform hover:scale-105 */}
       {/* rounded-lg flex items-center justify-center p-6  */}
-      <div className="flex flex-col gap-y-2 w-full p-6">
+      <div className="flex flex-col justify-center gap-y-2 w-full p-6 ">
         <div className="">
           <Carousel
             className={`border border-secondary
-            ${type === "product" ? "h-[200px] lg:h-[420px]" : "h-[420px]"}
+            ${
+              type === "product"
+                ? "w-[230px] lg:w-full h-[200px] lg:h-[420px]"
+                : "h-[420px]"
+            }
           }`}
           >
             <CarouselContent className="m-2">
@@ -143,7 +147,7 @@ export default function ImageUpload({
                     ${
                       type === "product"
                         ? "h-[165px] lg:h-[380px]"
-                        : "h-[420px]"
+                        : "h-[380px]"
                     }`}
                     >
                       <Image

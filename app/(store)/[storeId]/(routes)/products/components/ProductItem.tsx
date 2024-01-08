@@ -30,9 +30,9 @@ interface ProductItemProps {
 
 const ProductItem = ({ latestProduct }: ProductItemProps) => {
   return (
-    <div className="flex flex-col lg:flex-row gap-6 ">
+    <div className="flex flex-col items-center lg:items-start lg:flex-row gap-6 ">
       <Carousel
-        className={`border border-secondary w-full lg:w-1/3 overflow-hidden
+        className={`border border-secondary w-[300px] lg:w-1/3 overflow-hidden
         
           }`}
         orientation={`${

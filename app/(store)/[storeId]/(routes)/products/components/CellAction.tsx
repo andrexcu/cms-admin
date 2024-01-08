@@ -28,10 +28,10 @@ const CellAction = ({ data }: CellActionProps) => {
 
   const onCopy = () => {
     navigator.clipboard.writeText(data.id);
-    toast.success("Billboard Id copied to the clipboard.");
+    toast.success("Product Id copied to the clipboard.");
   };
   const onUpdate = () => {
-    router.push(`/${params.storeId}/manage/products/${data.id}`);
+    router.push(`/${params.storeId}/products/${data.id}`);
   };
 
   const onDelete = async () => {
