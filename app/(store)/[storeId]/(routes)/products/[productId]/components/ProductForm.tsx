@@ -202,11 +202,11 @@ const ProductForm = ({
                   <FormLabel>Price</FormLabel>
                   <FormControl>
                     <Input
-                      type="number"
                       {...field}
                       placeholder="9.99"
                       disabled={isLoading}
                       className="hover:bg-slate-300/20 bg-slate-500/10"
+                      type="number"
                     />
                   </FormControl>
                   <FormMessage />

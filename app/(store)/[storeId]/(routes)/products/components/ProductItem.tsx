@@ -51,7 +51,7 @@ const ProductItem = ({ latestProduct }: ProductItemProps) => {
                     alt="image"
                     fill
                     sizes="100vh"
-                    className={`object-cover h-[400px] ${
+                    className={`object-cover h-[400px] rounded-lg ${
                       latestProduct.images.length <= 1
                         ? "transition duration-300 ease-in-out transform hover:scale-110 opacity-70"
                         : ""

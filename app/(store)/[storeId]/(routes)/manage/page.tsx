@@ -1,12 +1,5 @@
-import React from "react";
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/components/ui/resizable";
 import EntitiesPage from "./components/EntitiesPage";
-import getCurrentUser from "@/app/actions/getCurrentUser";
-import { redirect } from "next/navigation";
+import prisma from "@/lib/prisma";
 
 interface ManagePageProps {
   params: {
@@ -14,8 +7,51 @@ interface ManagePageProps {
   };
 }
 
-const ManagePage = async () => {
-  return <EntitiesPage />;
+const ManagePage = async ({ params }: ManagePageProps) => {
+  const latestBillboard = await prisma.billboard.findFirst({
+    where: {
+      storeId: params.storeId,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  const latestCategory = await prisma.category.findFirst({
+    where: {
+      storeId: params.storeId,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  const latestColor = await prisma.color.findFirst({
+    where: {
+      storeId: params.storeId,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  const latestSize = await prisma.size.findFirst({
+    where: {
+      storeId: params.storeId,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return (
+    <EntitiesPage
+      billboard={latestBillboard}
+      category={latestCategory}
+      color={latestColor}
+      size={latestSize}
+    />
+  );
 };
 
 export default ManagePage;

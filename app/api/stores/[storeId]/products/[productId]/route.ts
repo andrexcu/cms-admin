@@ -99,14 +99,14 @@ export async function PATCH(
     if (!storeByUserId) {
       return new NextResponse("Unauthorized", { status: 403 });
     }
-    const safe_price = Math.round(price);
+    // const safe_price = Math.round(price);
     const product = await prisma.product.update({
       where: {
         id: params.productId,
       },
       data: {
         name,
-        price: safe_price,
+        price,
         isFeatured,
         isArchived,
         categoryId,

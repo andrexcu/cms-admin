@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import { ProductSchema } from "@/lib/Validation/ProductsValidation";
+import { revalidateTag } from "next/cache";
 
 export async function POST(
   req: Request,
