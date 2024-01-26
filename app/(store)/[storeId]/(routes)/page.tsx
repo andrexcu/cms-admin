@@ -25,6 +25,15 @@ const DashboardPage = async ({ params }: DashBoardPageProps) => {
       <div className="flex-1 space-y-4 p-8 pt-6">
         <Heading title="Dashboard" description="Overview of your store" />
         <Separator />
+
+        <Card className="col-span-4">
+          <CardHeader>
+            <CardTitle>Overview</CardTitle>
+          </CardHeader>
+          <CardContent className="pl-2">
+            <Overview data={graphRevenue} />
+          </CardContent>
+        </Card>
         <div className="grid gap-4 grid-cols-1 md:grid-cols-3">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -60,14 +69,6 @@ const DashboardPage = async ({ params }: DashBoardPageProps) => {
             </CardContent>
           </Card>
         </div>
-        <Card className="col-span-4">
-          <CardHeader>
-            <CardTitle>Overview</CardTitle>
-          </CardHeader>
-          <CardContent className="pl-2">
-            <Overview data={graphRevenue} />
-          </CardContent>
-        </Card>
       </div>
     </div>
   );
