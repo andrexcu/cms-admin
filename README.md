@@ -11,7 +11,7 @@ This project is a full-stack web application built with a modern tech stack, com
   - [Next.js 14](https://nextjs.org/)
   - [React](https://reactjs.org/)
   - [Tailwind CSS](https://tailwindcss.com/)
-  - [Shadcn Library](https://shadcn.com/) for styling
+  - [Shadcn Library](https://ui.shadcn.com/) for styling
   - [hookform](https://react-hook-form.com/) for managing user input
   - [Zustand](https://zustand.surge.sh/) for state management
 - Backend:
