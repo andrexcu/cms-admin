@@ -101,5 +101,49 @@ npx prisma db push
 ```shell
 npm run dev
 ```
+## Screenshots of the Project 📸
 
+<table>
+  <tr>
+    <td>
+      <img src="https://github.com/andrexcu/cms-admin/assets/137764968/ff7c67f8-3a64-40e4-8a82-3c4ac8d32f2b" alt="dashboard" width="500">
+    </td>
+    <td>
+      <img src="https://github.com/andrexcu/cms-admin/assets/137764968/0cf6e7f5-69af-4656-be4c-f074d13f855d" alt="manage" width="500">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://github.com/andrexcu/cms-admin/assets/137764968/9d1bd0cc-822f-4b9c-b7a8-84d2986541c9" alt="products" width="500">   
+    </td>
+    <td>
+      <img src="https://github.com/andrexcu/cms-admin/assets/137764968/1c145eec-e8f9-429f-9c86-136c8410ffca" alt="addproducts" width="500">   
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://github.com/andrexcu/cms-admin/assets/137764968/287c6c95-51ad-46e3-9942-0710a1f4129d" alt="billboards" width="500">   
+    </td>
+    <td>
+      <img src="https://github.com/andrexcu/cms-admin/assets/137764968/998cfbd3-3843-476d-9b61-7b4fa337b6b9" alt="categories" width="500">   
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <img src="https://github.com/andrexcu/cms-admin/assets/137764968/4f36d9f1-a78d-4d41-97b8-34723215cad6" alt="orders" width="500">   
+    </td>
+    <td>
+      <img src="https://github.com/andrexcu/cms-admin/assets/137764968/e38923a3-d949-4836-87fc-a3ea79567351" alt="createnewstore" width="500">   
+    </td>
+  </tr>
+    <tr>
+    <td>
+      <img src="https://github.com/andrexcu/cms-admin/assets/137764968/2e718156-1592-429d-b4a9-2627efc81367" alt="settings" width="500">   
+    </td>
+    <td>
+      <img src="https://github.com/andrexcu/cms-admin/assets/137764968/678874a8-08f4-4472-a609-33defdd004a8" alt="auth" width="500">   
+    </td>
+  </tr>
+  
+</table>
 
