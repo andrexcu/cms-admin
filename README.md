@@ -13,7 +13,7 @@ This project is a full-stack web application built with a modern tech stack, com
   - [Tailwind CSS](https://tailwindcss.com/)
   - [Shadcn Library](https://ui.shadcn.com/) for styling
   - [hookform](https://react-hook-form.com/) for managing user input
-  - [Zustand](https://zustand.surge.sh/) for state management
+  - [Zustand](https://github.com/pmndrs/zustand) for state management
 - Backend:
   - [NextAuth](https://next-auth.js.org/) for authentication
   - [Prisma](https://prisma.io/) for database access
@@ -21,7 +21,7 @@ This project is a full-stack web application built with a modern tech stack, com
   - [Zod](https://github.com/colinhacks/zod) for validation
   - [Axios](https://axios-http.com/) for handling API requests
 - Image Handling:
-  - [UploadThing](https://uploadthingy.com/) for managing and processing images
+  - [UploadThing](https://uploadthing.com/) for managing and processing images
 - Data Visualization:
   - [Recharts](https://recharts.org/) for creating interactive charts in the admin dashboard
 - **Payments:**
