@@ -7,25 +7,25 @@ This CMS project serves as the foundation for my front-end ecommerce application
 ## About the project
 This project is a full-stack web application built with a modern tech stack, combining powerful frameworks and libraries to deliver a robust and dynamic user experience.
 - Front End:
-  - TypeScript
-  - Next.js 14
-  - React
-  - Tailwind CSS
-  - Shadcn Library for styling
-  - hookform for managing user input
-  - Zustand for state management
+  - [TypeScript](https://www.typescriptlang.org/)
+  - [Next.js 14](https://nextjs.org/)
+  - [React](https://reactjs.org/)
+  - [Tailwind CSS](https://tailwindcss.com/)
+  - [Shadcn Library](https://shadcn.com/) for styling
+  - [hookform](https://react-hook-form.com/) for managing user input
+  - [Zustand](https://zustand.surge.sh/) for state management
 - Backend:
-  - NextAuth for authentication
-  - Prisma for database access
-  - MongoDB for data storage
-  - Zod for validation
-  - Axios for handling API requests
+  - [NextAuth](https://next-auth.js.org/) for authentication
+  - [Prisma](https://prisma.io/) for database access
+  - [MongoDB](https://www.mongodb.com/) for data storage
+  - [Zod](https://github.com/colinhacks/zod) for validation
+  - [Axios](https://axios-http.com/) for handling API requests
 - Image Handling:
-  - UploadThing for managing and processing images
+  - [UploadThing](https://uploadthingy.com/) for managing and processing images
 - Data Visualization:
-  - Recharts for creating interactive charts in the admin dashboard
+  - [Recharts](https://recharts.org/) for creating interactive charts in the admin dashboard
 - **Payments:**
-  - Integration with Stripe for secure and seamless payment processing.
+  - Integration with [Stripe](https://stripe.com/) for secure and seamless payment processing.
 ## Project Features
 - Authenication:
   - Secure authentication with NextAuth, supporting login through Google or GitHub accounts.
