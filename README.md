@@ -2,8 +2,8 @@
 ![heading_image](https://github.com/andrexcu/cms-admin/assets/137764968/490fadf5-1437-46bb-b8e2-4f430649b7cf)
 
 <!-- Check my front-end ecommerce project using this cms here: https://github.com/andrexcu/store-with-next> -->
-This backend project serves as the foundation for my front-end ecommerce application. You can explore the corresponding frontend repository here: 
-<a href="https://github.com/andrexcu/store-with-next">Store with Next</a>.
+This CMS project serves as the foundation for my front-end ecommerce application. You can explore the corresponding frontend repository here: 
+👉 <a href="https://github.com/andrexcu/store-with-next">Store with Next</a>.
 ## About the project
 This project is a full-stack web application built with a modern tech stack, combining powerful frameworks and libraries to deliver a robust and dynamic user experience.
 - Front End:
@@ -51,8 +51,55 @@ This project is a full-stack web application built with a modern tech stack, com
 - User Experience:
    - Light and dark mode support for enhanced user customization.
 
+### Prerequisites
+
+**Node version 14.x**
+
+### Cloning the repository
+
+```shell
+git clone https://github.com/andrexcu/cms-admin.git
+```
+
+### Install packages
+
+```shell
+npm i
+```
+
+### Setup .env file
 
 
-<br><br><br>
+```js
+DATABASE_URL=
+NEXTAUTH_SECRET=
+
+GITHUB_ID=
+GITHUB_SECRET=
+
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+
+UPLOADTHING_SECRET=
+UPLOADTHING_APP_ID=
+
+
+STRIPE_API_KEY=
+FRONTEND_STORE_URL=
+STRIPE_WEBHOOK_SECRET=
+```
+
+### Connect to MongoDB and Push Prisma Schema
+```shell
+npx prisma generate
+npx prisma db push
+```
+
+
+### Start the application
+
+```shell
+npm run dev
+```
 
 
