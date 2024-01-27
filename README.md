@@ -1,4 +1,4 @@
-# Full Stack CMS with Dashboard
+# Full Stack CMS
 ![heading_image](https://github.com/andrexcu/cms-admin/assets/137764968/490fadf5-1437-46bb-b8e2-4f430649b7cf)
 
 <!-- Check my front-end ecommerce project using this cms here: https://github.com/andrexcu/store-with-next> -->
@@ -10,8 +10,8 @@ This project is a full-stack web application built with a modern tech stack, com
   - [TypeScript](https://www.typescriptlang.org/)
   - [Next.js 14](https://nextjs.org/)
   - [React](https://reactjs.org/)
-  - [Tailwind CSS](https://tailwindcss.com/)
-  - [Shadcn Library](https://ui.shadcn.com/) for styling
+  - [Tailwind CSS](https://tailwindcss.com/) for styling
+  - [Shadcn Library](https://ui.shadcn.com/) for UI components
   - [hookform](https://react-hook-form.com/) for managing user input
   - [Zustand](https://github.com/pmndrs/zustand) for state management
 - Backend:
