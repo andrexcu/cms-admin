@@ -39,6 +39,17 @@ interface ColorFormProps {
 }
 
 const ColorForm = ({ initialData }: ColorFormProps) => {
+  const form = useForm<TColorSchema>({
+    resolver: zodResolver(ColorSchema),
+    defaultValues: initialData || {
+      name: "",
+      value: "",
+    },
+  });
+
+  const {
+    formState: { errors },
+  } = form;
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -61,17 +72,6 @@ const ColorForm = ({ initialData }: ColorFormProps) => {
   const toastMessage = initialData ? "Color Updated." : "Color created.";
   const action = initialData ? "Save changes" : "Create";
 
-  const form = useForm<TColorSchema>({
-    resolver: zodResolver(ColorSchema),
-    defaultValues: initialData || {
-      name: "",
-      value: "",
-    },
-  });
-
-  const {
-    formState: { errors },
-  } = form;
   const onSubmit = async (data: TColorSchema) => {
     try {
       setIsLoading(true);

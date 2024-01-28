@@ -42,6 +42,17 @@ interface CategoryFormProps {
 }
 
 const CategoryForm = ({ initialData, billboards }: CategoryFormProps) => {
+  const form = useForm<TCategorySchema>({
+    resolver: zodResolver(CategorySchema),
+    defaultValues: initialData || {
+      name: "",
+      billboardId: "",
+    },
+  });
+
+  const {
+    formState: { errors },
+  } = form;
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -64,17 +75,6 @@ const CategoryForm = ({ initialData, billboards }: CategoryFormProps) => {
   const toastMessage = initialData ? "Category Updated." : "Category created.";
   const action = initialData ? "Save changes" : "Create";
 
-  const form = useForm<TCategorySchema>({
-    resolver: zodResolver(CategorySchema),
-    defaultValues: initialData || {
-      name: "",
-      billboardId: "",
-    },
-  });
-
-  const {
-    formState: { errors },
-  } = form;
   const onSubmit = async (data: TCategorySchema) => {
     try {
       setIsLoading(true);

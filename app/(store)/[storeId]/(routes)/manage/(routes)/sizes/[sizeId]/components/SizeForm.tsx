@@ -39,6 +39,17 @@ interface SizeFormProps {
 }
 
 const SizeForm = ({ initialData }: SizeFormProps) => {
+  const form = useForm<TSizeSchema>({
+    resolver: zodResolver(SizeSchema),
+    defaultValues: initialData || {
+      name: "",
+      value: "",
+    },
+  });
+
+  const {
+    formState: { errors },
+  } = form;
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -61,17 +72,6 @@ const SizeForm = ({ initialData }: SizeFormProps) => {
   const toastMessage = initialData ? "Size Updated." : "Size created.";
   const action = initialData ? "Save changes" : "Create";
 
-  const form = useForm<TSizeSchema>({
-    resolver: zodResolver(SizeSchema),
-    defaultValues: initialData || {
-      name: "",
-      value: "",
-    },
-  });
-
-  const {
-    formState: { errors },
-  } = form;
   const onSubmit = async (data: TSizeSchema) => {
     try {
       setIsLoading(true);

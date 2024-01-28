@@ -8,7 +8,6 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import Heading from "@/components/ui/heading";
 import ImageUpload from "@/components/ui/image-upload";
@@ -21,19 +20,26 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Billboard } from "@prisma/client";
 import axios from "axios";
-import { LogOut, Trash } from "lucide-react";
+import { LogOut } from "lucide-react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { z } from "zod";
 
 interface BillboardFormProps {
   initialData: Billboard | null;
 }
 
 const BillboardForm = ({ initialData }: BillboardFormProps) => {
+  const form = useForm<TBillboardSchema>({
+    resolver: zodResolver(BillboardSchema),
+    defaultValues: initialData || {
+      label: "",
+      imageUrl: "",
+    },
+  });
+
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -56,14 +62,6 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
     ? "Billboard Updated."
     : "Billboard created.";
   const action = initialData ? "Save changes" : "Create";
-
-  const form = useForm<TBillboardSchema>({
-    resolver: zodResolver(BillboardSchema),
-    defaultValues: initialData || {
-      label: "",
-      imageUrl: "",
-    },
-  });
 
   const onSubmit = async (data: TBillboardSchema) => {
     try {
@@ -102,6 +100,7 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
       setOpen(false);
     }
   };
+
   const {
     formState: { errors },
     reset,
@@ -109,6 +108,7 @@ const BillboardForm = ({ initialData }: BillboardFormProps) => {
   } = form;
   const label = watch("label");
   const imageUrl = watch("imageUrl");
+
   return (
     <>
       <AlertModal

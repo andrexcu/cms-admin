@@ -55,6 +55,19 @@ const ProductForm = ({
   colors,
   initialData,
 }: ProductFormProps) => {
+  const form = useForm<TProductSchema>({
+    resolver: zodResolver(ProductSchema),
+    defaultValues: {
+      ...initialData,
+      price: parseFloat(String(initialData?.price)),
+    },
+  });
+
+  const {
+    watch,
+    formState: { errors },
+  } = form;
+
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -76,18 +89,6 @@ const ProductForm = ({
   const toastMessage = "Product Updated.";
   const action = "Save Changes";
 
-  const form = useForm<TProductSchema>({
-    resolver: zodResolver(ProductSchema),
-    defaultValues: {
-      ...initialData,
-      price: parseFloat(String(initialData?.price)),
-    },
-  });
-
-  const {
-    watch,
-    formState: { errors },
-  } = form;
   const images = watch("images");
   const onSubmit = async (data: TProductSchema) => {
     try {

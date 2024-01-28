@@ -15,7 +15,7 @@ const AuthPage = () => {
   // }, [isOpen, onOpen]);
   useEffect(() => {
     onOpen();
-  }, []);
+  }, [onOpen]);
   return null;
 };
 
