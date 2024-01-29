@@ -7,7 +7,6 @@
 >**This project is a full-stack web application built with a modern tech stack, combining powerful frameworks and libraries to deliver a robust and dynamic user experience.
 This CMS project is being used for my front-end ecommerce application. You can explore the corresponding frontend repository here: 
 👉 <a href="https://github.com/andrexcu/store-with-next">Store with Next</a>.**
-* * * * *
 ### 🛠️Built With:
 - Front End:
   - [TypeScript](https://www.typescriptlang.org/)
