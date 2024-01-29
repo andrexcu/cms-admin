@@ -54,7 +54,7 @@ This CMS project is being used for my front-end ecommerce application. You can e
    - Graph for revenue, data for sales and stock.
 - User Experience:
    - Light and dark mode support for enhanced user customization.
-
+* * * * *
 ## 📸 Screenshots of the Project 
 
 <table>
